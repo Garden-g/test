@@ -145,7 +145,8 @@ function resolveFromRecentSdkLog() {
   const cutoff = Date.now() - 15 * 60 * 1000;
   let latest = null;
   for (const line of buffer.toString("utf8").split("\n")) {
-    if (!line.includes("/.accio/accounts/")) {
+    // 原始 JSON 行里的 Windows 反斜杠会被转义；先做宽松预筛，再解析 message。
+    if (!line.includes(".accio") || !line.includes("accounts")) {
       continue;
     }
 
@@ -161,7 +162,11 @@ function resolveFromRecentSdkLog() {
       continue;
     }
 
-    const match = String(record.message || "").match(
+    const normalizedMessage = String(record.message || "").replace(/\\/g, "/");
+    if (!normalizedMessage.includes("/.accio/accounts/")) {
+      continue;
+    }
+    const match = normalizedMessage.match(
       /\/\.accio\/accounts\/([A-Za-z0-9_-]+)\//,
     );
     if (!match || match[1] === "guest") {
