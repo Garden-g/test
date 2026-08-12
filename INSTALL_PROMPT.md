@@ -1,19 +1,11 @@
-请把下面这个 TokenMind 23 智能体套装安装到我当前登录的 Accio Work 账号。不要只预览 ZIP，也不要走“创建智能体”注册向导；要完成真实本机安装并验证。
+请安装这个 TokenMind 23 智能体套装到当前 Accio Work 空间：
 
-ZIP 下载地址：
-https://raw.githubusercontent.com/Garden-g/test/main/release/tokenmind-23-accio-agents-v1.0.1.zip
+ZIP：
+https://raw.githubusercontent.com/Garden-g/test/main/release/tokenmind-23-accio-agents-v1.0.2.zip
 
-SHA-256 校验文件：
-https://raw.githubusercontent.com/Garden-g/test/main/release/tokenmind-23-accio-agents-v1.0.1.zip.sha256
+SHA-256：
+https://raw.githubusercontent.com/Garden-g/test/main/release/tokenmind-23-accio-agents-v1.0.2.zip.sha256
 
-请严格执行：
-1. 在安全临时目录下载 ZIP 和 .sha256，先运行 SHA-256 校验；校验失败立即停止。
-2. 在 Windows PowerShell 中使用 `Expand-Archive` 解压，兼容 UTF-8 文件名；不要把 ZIP 文件本身直接丢进 `agents/`。
-3. 阅读解压目录里的 `README.md` 和 `bundle-manifest.json`，确认 `bundleId` 是 `tokenmind-23-accio-agents`、版本 `1.0.1`、Agent 数量 23。
-4. 使用 Windows PowerShell 执行解压目录中的 `installer/install-windows.ps1`：
-   `powershell.exe -NoProfile -ExecutionPolicy Bypass -File <install-windows.ps1绝对路径>`
-   脚本会优先从正在运行的 Accio Work 进程取得 `Accio.exe`，并用其自带 Node 执行 `install.mjs`；只有找不到 `Accio.exe` 时才回退到系统 Node。不要要求用户另外安装 Node。
-5. 安装器必须识别当前个人/团队空间，为每个 Agent 生成唯一 MID-*，让目录名与 profile.jsonc.id 一致，并把对应完整私有 Skill 放在 agent-core/skills/ 下。
-6. 禁止覆盖现有 Agent；同一套装已经完整安装时允许跳过。不要复制会话、审计日志、tool-results、运行缓存、其他账号路径或凭据。
-7. 只有终端出现 INSTALL_OK，且回报 installedCount + skippedCount = 23、每个 Agent 恰好一个私有 Skill、Logo 一致、没有 .installing-* 残留，才能告诉我安装成功。
-8. 不要自动重启 Accio。完成后告诉我目标账号空间、安装数量、跳过数量和目录，让我自己完整退出并重新打开 Accio。
+下载并校验后解压，先读取包内 `INSTALL_PROMPT.txt`，再执行当前系统对应的安装器：Windows 使用 `installer/install-windows.ps1`，macOS 使用 `installer/install-macos.sh`。不要走“创建智能体”流程，不要覆盖已有智能体。
+
+安装器会把当前 Accio 主智能体中的本地用户画像和记忆融合进这23个智能体；请勿转发已安装的智能体目录，否则会同时带上当前账号的本地信息。只有出现 `INSTALL_OK`，且安装数加跳过数、个性化数均为23并且没有 `.installing-*` 残留时，才能报告成功。不要自动重启 Accio，完成后提醒我手动完整退出并重新打开。
