@@ -1,5 +1,7 @@
 Install the Yingdan suite of 27 agents into the current Accio Work space.
 
+Use Chinese for all user-facing communication, including progress updates, clarification questions, error messages, and the final installation report.
+
 ZIP:
 https://raw.githubusercontent.com/Garden-g/test/main/release/yingdan-27-accio-agents-v1.2.0.zip
 
