@@ -1,5 +1,5 @@
 /**
- * TokenMind 23 个 Accio Work 智能体套装安装器。
+ * TokenMind Accio Work 智能体套装安装器。
  *
  * 安装器只处理当前 Bundle 中声明的 Agent 模板，主要职责：
  * 1. 识别当前 Accio 个人或团队空间的 agents/ 目录；
@@ -442,7 +442,7 @@ function indexExistingAgents(targetRoot) {
  *
  * Accio 0.28.6 没有空间根目录级的统一 USER.md/MEMORY.md；用户画像和长期记忆属于
  * 具体 Agent。`agentType: "accio"` 是当前主 Accio Agent 的稳定标记，因此安装器从
- * 该 Agent 读取本地上下文，再同步到本套装的 23 个 Agent。
+ * 该 Agent 读取本地上下文，再同步到清单声明的全部 Agent。
  *
  * @param {string} targetRoot - 当前空间 agents/ 目录。
  * @param {string} accountKey - 当前个人或团队空间键。
@@ -770,8 +770,16 @@ function validatePreparedAgent(
  *   新安装、已存在清单和本地个性化校验结果。
  */
 function installBundle(manifest, target, dryRun) {
-  if (!Array.isArray(manifest.agents) || manifest.agents.length !== 23) {
-    throw new Error(`Bundle Agent 数量异常：${manifest.agents?.length ?? "未知"}`);
+  const declaredAgentCount = Number(manifest.agentCount);
+  if (
+    !Array.isArray(manifest.agents) ||
+    !Number.isInteger(declaredAgentCount) ||
+    declaredAgentCount <= 0 ||
+    manifest.agents.length !== declaredAgentCount
+  ) {
+    throw new Error(
+      `Bundle Agent 数量异常：清单声明 ${manifest.agentCount ?? "未知"}，实际 ${manifest.agents?.length ?? "未知"}`,
+    );
   }
 
   const personalizationSource = resolvePersonalizationSource(

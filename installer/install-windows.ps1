@@ -1,11 +1,11 @@
 <#
-TokenMind 23 个 Accio Work 智能体套装的 Windows 启动器。
+TokenMind Accio Work 智能体套装的 Windows 启动器。
 
 作用：
 1. 找到正在运行的 Accio.exe；
 2. 把 Accio 自带的 Electron 运行时临时切换为 Node 模式；
 3. 执行同目录下的 install.mjs；
-4. 由 install.mjs 完成23个 Agent 的原子安装和当前账号本地个性化；
+4. 由 install.mjs 按 Bundle 清单完成全部 Agent 的原子安装和当前账号本地个性化；
 5. 恢复原来的环境变量，不主动结束或重启 Accio。
 #>
 
