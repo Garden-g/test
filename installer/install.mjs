@@ -1,5 +1,5 @@
 /**
- * TokenMind Accio Work 智能体套装安装器。
+ * 赢单 Accio Work 智能体套装安装器。
  *
  * 安装器只处理当前 Bundle 中声明的 Agent 模板，主要职责：
  * 1. 识别当前 Accio 个人或团队空间的 agents/ 目录；
@@ -22,6 +22,7 @@ const BUNDLE_ROOT = path.dirname(INSTALLER_DIRECTORY);
 const MANIFEST_PATH = path.join(BUNDLE_ROOT, "bundle-manifest.json");
 const ACCIO_ROOT = path.join(os.homedir(), ".accio");
 const ACCOUNTS_ROOT = path.join(ACCIO_ROOT, "accounts");
+// 保留历史标记值，确保旧版套装升级后替换原块，而不是重复追加用户画像和记忆。
 const USER_CONTEXT_MARKERS = {
   begin: "<!-- TOKENMIND:BEGIN_LOCAL_USER_CONTEXT -->",
   end: "<!-- TOKENMIND:END_LOCAL_USER_CONTEXT -->",
@@ -101,7 +102,7 @@ function escapeRegExp(value) {
 }
 
 /**
- * 在 Markdown 中插入或更新一个 TokenMind 管理的标记块。
+ * 在 Markdown 中插入或更新一个赢单管理的标记块。
  *
  * 已存在同名标记块时只替换块内内容，确保安装器重复执行不会不断追加副本；不存在时
  * 追加到文件末尾，并保留 Agent 模板原有的人设、规则和记忆内容。
@@ -363,13 +364,15 @@ function resolveInstallTarget(options) {
 }
 
 /**
- * 检查同一来源 Agent 是否已完整安装。
+ * 检查同一来源 Agent 的目录和私有 Skill 是否完整。
+ *
+ * 品牌名称和 Logo 不在这里校验，因为新版安装器需要允许旧版 Agent 进入品牌升级流程。
  *
  * @param {string} agentDirectory - 已有 Agent 目录。
  * @param {Record<string, unknown>} manifestAgent - Bundle 清单项。
  * @returns {boolean} profile、索引和 SKILL.md 全部匹配时返回 true。
  */
-function isCompleteExistingInstall(agentDirectory, manifestAgent) {
+function isStructurallyCompleteExistingInstall(agentDirectory, manifestAgent) {
   try {
     const profile = readJsonc(path.join(agentDirectory, "profile.jsonc"));
     const skillsIndex = readJsonc(
@@ -385,9 +388,6 @@ function isCompleteExistingInstall(agentDirectory, manifestAgent) {
     return (
       profile.sourceAgentId === manifestAgent.sourceAgentId &&
       profile.enabled !== false &&
-      profile.avatarSha256 === manifestAgent.avatarSha256 &&
-      profile.avatar === profile.avatarUrl &&
-      calculateEmbeddedAvatarSha256(profile) === manifestAgent.avatarSha256 &&
       Array.isArray(skillsIndex.skills) &&
       skillsIndex.skills.length === 1 &&
       skillsIndex.skills[0]?.id === manifestAgent.runtimeSkillId &&
@@ -399,6 +399,57 @@ function isCompleteExistingInstall(agentDirectory, manifestAgent) {
   } catch {
     return false;
   }
+}
+
+/**
+ * 将已经安装的同来源 Agent 升级为当前 Bundle 声明的赢单名称与 Logo。
+ *
+ * 头像只从本 Bundle 对应模板读取，不能相信外部输入。函数返回原始 profile 文本，
+ * 便于后续任一步失败时完整回滚，不影响用户原有 Agent ID 和安装目录。
+ *
+ * @param {string} agentDirectory - 已安装 Agent 目录。
+ * @param {Record<string, unknown>} manifestAgent - Bundle 清单项。
+ * @returns {{profilePath: string, profileContent: string}} 写入前快照。
+ * @throws {Error} 模板、头像或 profile 不完整时抛出。
+ */
+function applyBrandingToExistingAgent(agentDirectory, manifestAgent) {
+  const profilePath = path.join(agentDirectory, "profile.jsonc");
+  const templateProfilePath = path.join(
+    BUNDLE_ROOT,
+    "agents",
+    manifestAgent.templateDirectory,
+    "profile.jsonc",
+  );
+  const profileContent = fs.readFileSync(profilePath, "utf8");
+  const profile = readJsonc(profilePath);
+  const templateProfile = readJsonc(templateProfilePath);
+  if (
+    templateProfile.name !== manifestAgent.displayName ||
+    templateProfile.avatarSha256 !== manifestAgent.avatarSha256 ||
+    templateProfile.avatar !== templateProfile.avatarUrl ||
+    calculateEmbeddedAvatarSha256(templateProfile) !== manifestAgent.avatarSha256
+  ) {
+    throw new Error(`Bundle 品牌模板校验失败：${manifestAgent.displayName}`);
+  }
+
+  writeJsonAtomically(profilePath, {
+    ...profile,
+    name: manifestAgent.displayName,
+    avatar: templateProfile.avatar,
+    avatarUrl: templateProfile.avatarUrl,
+    avatarSha256: templateProfile.avatarSha256,
+  });
+  return { profilePath, profileContent };
+}
+
+/**
+ * 恢复品牌升级前的 profile 原文。
+ *
+ * @param {{profilePath: string, profileContent: string}} snapshot - 品牌写入前快照。
+ * @returns {void}
+ */
+function restoreBrandingSnapshot(snapshot) {
+  writeTextAtomically(snapshot.profilePath, snapshot.profileContent);
 }
 
 /**
@@ -766,8 +817,8 @@ function validatePreparedAgent(
  * @param {Record<string, unknown>} manifest - bundle-manifest.json。
  * @param {{targetRoot: string, accountKey: string, source: string}} target - 当前空间。
  * @param {boolean} dryRun - 是否只做预检。
- * @returns {{installed: Array<Record<string, string>>, skipped: Array<Record<string, string>>, personalizedCount: number, personalizationSourceAgentId: string, personalizationFingerprint: string, installingResidue: string[]}}
- *   新安装、已存在清单和本地个性化校验结果。
+ * @returns {{installed: Array<Record<string, string>>, skipped: Array<Record<string, string>>, personalizedCount: number, brandedCount: number, personalizationSourceAgentId: string, personalizationFingerprint: string, installingResidue: string[]}}
+ *   新安装、已存在清单、赢单品牌和本地个性化校验结果。
  */
 function installBundle(manifest, target, dryRun) {
   const declaredAgentCount = Number(manifest.agentCount);
@@ -796,7 +847,7 @@ function installBundle(manifest, target, dryRun) {
       manifestAgent.sourceAgentId,
     );
     if (existingSourceDirectory) {
-      if (!isCompleteExistingInstall(existingSourceDirectory, manifestAgent)) {
+      if (!isStructurallyCompleteExistingInstall(existingSourceDirectory, manifestAgent)) {
         throw new Error(
           `已存在同来源但不完整的 Agent：${manifestAgent.displayName}（${existingSourceDirectory}）`,
         );
@@ -837,7 +888,9 @@ function installBundle(manifest, target, dryRun) {
       })),
       skipped,
       personalizedCount: 0,
+      brandedCount: 0,
       wouldPersonalizeCount: tasks.length + skipped.length,
+      wouldBrandCount: tasks.length + skipped.length,
       personalizationSourceAgentId: personalizationSource.sourceAgentId,
       personalizationFingerprint: personalizationSource.fingerprint,
       installingResidue: listInstallingResidue(target.targetRoot),
@@ -847,6 +900,7 @@ function installBundle(manifest, target, dryRun) {
   const staged = [];
   const finalized = [];
   const existingPersonalizationSnapshots = [];
+  const existingBrandingSnapshots = [];
   try {
     for (const task of tasks) {
       if (fs.existsSync(task.stagingDirectory) || fs.existsSync(task.finalDirectory)) {
@@ -916,14 +970,31 @@ function installBundle(manifest, target, dryRun) {
       validatePersonalization(task.stagingDirectory, personalizationSource);
     }
 
-    // 已完整安装的同来源 Agent 不重复创建，但仍刷新为当前账号最新的本地画像和记忆。
-    // 写入前保留内存快照；后续任何一步失败都会恢复原文件。
+    // 已完整安装的同来源 Agent 不重复创建，但会统一升级赢单名称与 Logo，并刷新当前
+    // 账号最新的本地画像和记忆。写入前保留快照；后续任何一步失败都会恢复原文件。
     for (const skippedTask of skippedTasks) {
+      const brandingSnapshot = applyBrandingToExistingAgent(
+        skippedTask.directory,
+        skippedTask.manifestAgent,
+      );
+      existingBrandingSnapshots.push(brandingSnapshot);
       const snapshot = personalizeAgentDirectory(
         skippedTask.directory,
         personalizationSource,
       );
       existingPersonalizationSnapshots.push(snapshot);
+      const finalSkillDirectory = path.join(
+        skippedTask.directory,
+        "agent-core",
+        "skills",
+        skippedTask.manifestAgent.runtimeSkillId,
+      );
+      validatePreparedAgent(
+        skippedTask.directory,
+        skippedTask.manifestAgent,
+        skippedTask.localAgentId,
+        finalSkillDirectory,
+      );
       validatePersonalization(skippedTask.directory, personalizationSource);
     }
 
@@ -952,6 +1023,18 @@ function installBundle(manifest, target, dryRun) {
     }
 
     for (const skippedTask of skippedTasks) {
+      const finalSkillDirectory = path.join(
+        skippedTask.directory,
+        "agent-core",
+        "skills",
+        skippedTask.manifestAgent.runtimeSkillId,
+      );
+      validatePreparedAgent(
+        skippedTask.directory,
+        skippedTask.manifestAgent,
+        skippedTask.localAgentId,
+        finalSkillDirectory,
+      );
       validatePersonalization(skippedTask.directory, personalizationSource);
     }
 
@@ -984,6 +1067,15 @@ function installBundle(manifest, target, dryRun) {
         process.stderr.write(`ROLLBACK_WARNING ${restoreMessage}\n`);
       }
     }
+    for (const snapshot of existingBrandingSnapshots.reverse()) {
+      try {
+        restoreBrandingSnapshot(snapshot);
+      } catch (restoreError) {
+        const restoreMessage =
+          restoreError instanceof Error ? restoreError.message : String(restoreError);
+        process.stderr.write(`ROLLBACK_WARNING ${restoreMessage}\n`);
+      }
+    }
     throw error;
   }
 
@@ -996,6 +1088,8 @@ function installBundle(manifest, target, dryRun) {
     })),
     skipped,
     personalizedCount: tasks.length + skippedTasks.length,
+    brandedCount: tasks.length + skippedTasks.length,
+    wouldBrandCount: tasks.length + skippedTasks.length,
     wouldPersonalizeCount: tasks.length + skippedTasks.length,
     personalizationSourceAgentId: personalizationSource.sourceAgentId,
     personalizationFingerprint: personalizationSource.fingerprint,
@@ -1025,6 +1119,11 @@ function main() {
       `本地个性化总数异常：${result.personalizedCount}/${manifest.agentCount}`,
     );
   }
+  if (!argumentsResult.dryRun && result.brandedCount !== manifest.agentCount) {
+    throw new Error(
+      `赢单品牌更新总数异常：${result.brandedCount}/${manifest.agentCount}`,
+    );
+  }
   if (!argumentsResult.dryRun && result.installingResidue.length > 0) {
     throw new Error(
       `仍有 staging 残留：${result.installingResidue.join(", ")}`,
@@ -1042,7 +1141,9 @@ function main() {
     installedCount: result.installed.length,
     skippedCount: result.skipped.length,
     personalizedCount: result.personalizedCount,
+    brandedCount: result.brandedCount,
     wouldPersonalizeCount: result.wouldPersonalizeCount,
+    wouldBrandCount: result.wouldBrandCount,
     personalizationSourceAgentId: result.personalizationSourceAgentId,
     personalizationFingerprint: result.personalizationFingerprint,
     installingResidue: result.installingResidue,
@@ -1054,11 +1155,11 @@ function main() {
   process.stdout.write(`${JSON.stringify(summary, null, 2)}\n`);
   if (argumentsResult.dryRun) {
     process.stdout.write(
-      `PRECHECK_OK wouldInstall=${summary.installedCount} skipped=${summary.skippedCount} wouldPersonalize=${summary.wouldPersonalizeCount} target=${summary.targetRoot}\n`,
+      `PRECHECK_OK wouldInstall=${summary.installedCount} skipped=${summary.skippedCount} wouldBrand=${summary.wouldBrandCount} wouldPersonalize=${summary.wouldPersonalizeCount} target=${summary.targetRoot}\n`,
     );
   } else {
     process.stdout.write(
-      `INSTALL_OK installed=${summary.installedCount} skipped=${summary.skippedCount} personalized=${summary.personalizedCount} residue=${summary.installingResidue.length} target=${summary.targetRoot}\n`,
+      `INSTALL_OK installed=${summary.installedCount} skipped=${summary.skippedCount} branded=${summary.brandedCount} personalized=${summary.personalizedCount} residue=${summary.installingResidue.length} target=${summary.targetRoot}\n`,
     );
   }
 }

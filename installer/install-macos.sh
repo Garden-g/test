@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# TokenMind Accio Work 智能体套装的 macOS 启动器。
+# 赢单 Accio Work 智能体套装的 macOS 启动器。
 #
 # 作用：
 # 1. 优先定位本机 Accio.app 自带的 Electron/Node 运行时；
