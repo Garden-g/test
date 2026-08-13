@@ -1,5 +1,5 @@
 /**
- * 赢单 Accio Work 智能体套装安装器。
+ * 来搜 Accio Work 智能体套装安装器。
  *
  * 安装器只处理当前 Bundle 中声明的 Agent 模板，主要职责：
  * 1. 识别当前 Accio 个人或团队空间的 agents/ 目录；
@@ -31,6 +31,13 @@ const MEMORY_CONTEXT_MARKERS = {
   begin: "<!-- TOKENMIND:BEGIN_LOCAL_MEMORY_CONTEXT -->",
   end: "<!-- TOKENMIND:END_LOCAL_MEMORY_CONTEXT -->",
 };
+// 仅用于升级同来源旧版 Agent 的可见品牌文案；不要修改上面的历史标记值。
+const LEGACY_VISIBLE_BRANDS = ["赢单", "TokenMind"];
+const BRAND_IDENTITY_FILES = [
+  "agent-core/AGENTS.md",
+  "agent-core/IDENTITY.md",
+  "agent-core/SOUL.md",
+];
 
 /**
  * 解析允许顶部带整行 // 注释的 JSONC。
@@ -102,7 +109,7 @@ function escapeRegExp(value) {
 }
 
 /**
- * 在 Markdown 中插入或更新一个赢单管理的标记块。
+ * 在 Markdown 中插入或更新一个来搜管理的标记块。
  *
  * 已存在同名标记块时只替换块内内容，确保安装器重复执行不会不断追加副本；不存在时
  * 追加到文件末尾，并保留 Agent 模板原有的人设、规则和记忆内容。
@@ -402,17 +409,20 @@ function isStructurallyCompleteExistingInstall(agentDirectory, manifestAgent) {
 }
 
 /**
- * 将已经安装的同来源 Agent 升级为当前 Bundle 声明的赢单名称与 Logo。
+ * 将已经安装的同来源 Agent 升级为当前 Bundle 声明的来搜品牌。
  *
- * 头像只从本 Bundle 对应模板读取，不能相信外部输入。函数返回原始 profile 文本，
- * 便于后续任一步失败时完整回滚，不影响用户原有 Agent ID 和安装目录。
+ * 头像与目标品牌只从本 Bundle 对应模板读取，不能相信外部输入。除了 profile 的名称、
+ * Logo 和 brand 字段，还会替换三个固定身份文件中的旧品牌字样；不会改动 USER.md、
+ * MEMORY.md 或私有 Skill。函数保留所有原文，便于失败时完整回滚，同时不改变 Agent ID
+ * 和安装目录。
  *
  * @param {string} agentDirectory - 已安装 Agent 目录。
  * @param {Record<string, unknown>} manifestAgent - Bundle 清单项。
- * @returns {{profilePath: string, profileContent: string}} 写入前快照。
- * @throws {Error} 模板、头像或 profile 不完整时抛出。
+ * @param {string} expectedBrand - Bundle 顶层声明的目标品牌。
+ * @returns {{files: Array<{filePath: string, content: string}>}} 写入前快照。
+ * @throws {Error} 模板、头像、品牌或目标身份文件不完整时抛出。
  */
-function applyBrandingToExistingAgent(agentDirectory, manifestAgent) {
+function applyBrandingToExistingAgent(agentDirectory, manifestAgent, expectedBrand) {
   const profilePath = path.join(agentDirectory, "profile.jsonc");
   const templateProfilePath = path.join(
     BUNDLE_ROOT,
@@ -425,6 +435,7 @@ function applyBrandingToExistingAgent(agentDirectory, manifestAgent) {
   const templateProfile = readJsonc(templateProfilePath);
   if (
     templateProfile.name !== manifestAgent.displayName ||
+    templateProfile.brand !== expectedBrand ||
     templateProfile.avatarSha256 !== manifestAgent.avatarSha256 ||
     templateProfile.avatar !== templateProfile.avatarUrl ||
     calculateEmbeddedAvatarSha256(templateProfile) !== manifestAgent.avatarSha256
@@ -432,24 +443,49 @@ function applyBrandingToExistingAgent(agentDirectory, manifestAgent) {
     throw new Error(`Bundle 品牌模板校验失败：${manifestAgent.displayName}`);
   }
 
-  writeJsonAtomically(profilePath, {
-    ...profile,
-    name: manifestAgent.displayName,
-    avatar: templateProfile.avatar,
-    avatarUrl: templateProfile.avatarUrl,
-    avatarSha256: templateProfile.avatarSha256,
-  });
-  return { profilePath, profileContent };
+  const files = [{ filePath: profilePath, content: profileContent }];
+  try {
+    writeJsonAtomically(profilePath, {
+      ...profile,
+      name: manifestAgent.displayName,
+      brand: expectedBrand,
+      avatar: templateProfile.avatar,
+      avatarUrl: templateProfile.avatarUrl,
+      avatarSha256: templateProfile.avatarSha256,
+    });
+
+    for (const relativePath of BRAND_IDENTITY_FILES) {
+      const filePath = path.join(agentDirectory, relativePath);
+      const content = fs.readFileSync(filePath, "utf8");
+      files.push({ filePath, content });
+      let brandedContent = content;
+      for (const legacyBrand of LEGACY_VISIBLE_BRANDS) {
+        brandedContent = brandedContent.split(legacyBrand).join(expectedBrand);
+      }
+      if (brandedContent !== content) {
+        writeTextAtomically(filePath, brandedContent);
+      }
+    }
+  } catch (error) {
+    for (const snapshot of files.reverse()) {
+      writeTextAtomically(snapshot.filePath, snapshot.content);
+    }
+    throw error;
+  }
+
+  return { files };
 }
 
 /**
- * 恢复品牌升级前的 profile 原文。
+ * 恢复品牌升级前的 profile 和固定身份文件原文。
  *
- * @param {{profilePath: string, profileContent: string}} snapshot - 品牌写入前快照。
+ * @param {{files: Array<{filePath: string, content: string}>}} snapshot - 品牌写入前快照。
  * @returns {void}
  */
 function restoreBrandingSnapshot(snapshot) {
-  writeTextAtomically(snapshot.profilePath, snapshot.profileContent);
+  for (const file of snapshot.files) {
+    writeTextAtomically(file.filePath, file.content);
+  }
 }
 
 /**
@@ -752,6 +788,7 @@ function createUniqueAgentId(usedIds) {
  * @param {Record<string, unknown>} manifestAgent - Bundle 清单项。
  * @param {string} expectedAgentId - 本次生成的 MID-*。
  * @param {string} expectedInstallPath - 私有 Skill 最终安装绝对路径。
+ * @param {string} expectedBrand - Bundle 顶层声明的品牌。
  * @returns {void}
  * @throws {Error} 文件、ID、头像或 Skill 索引不匹配时抛出。
  */
@@ -760,6 +797,7 @@ function validatePreparedAgent(
   manifestAgent,
   expectedAgentId,
   expectedInstallPath,
+  expectedBrand,
 ) {
   const required = [
     "profile.jsonc",
@@ -790,6 +828,7 @@ function validatePreparedAgent(
   if (
     profile.id !== expectedAgentId ||
     profile.name !== manifestAgent.displayName ||
+    profile.brand !== expectedBrand ||
     profile.enabled !== true ||
     profile.sourceAgentId !== manifestAgent.sourceAgentId ||
     profile.avatarSha256 !== manifestAgent.avatarSha256 ||
@@ -797,6 +836,19 @@ function validatePreparedAgent(
     calculateEmbeddedAvatarSha256(profile) !== manifestAgent.avatarSha256
   ) {
     throw new Error(`${manifestAgent.displayName} 的 profile 校验失败`);
+  }
+
+  const brandIdentityContents = BRAND_IDENTITY_FILES.map((relativePath) => ({
+    relativePath,
+    content: fs.readFileSync(path.join(agentDirectory, relativePath), "utf8"),
+  }));
+  for (const { relativePath, content } of brandIdentityContents) {
+    if (LEGACY_VISIBLE_BRANDS.some((legacyBrand) => content.includes(legacyBrand))) {
+      throw new Error(`${manifestAgent.displayName} 的品牌身份文档校验失败：${relativePath}`);
+    }
+  }
+  if (!brandIdentityContents.some(({ content }) => content.includes(expectedBrand))) {
+    throw new Error(`${manifestAgent.displayName} 的身份文档缺少目标品牌：${expectedBrand}`);
   }
   if (
     !Array.isArray(skillsIndex.skills) ||
@@ -818,10 +870,11 @@ function validatePreparedAgent(
  * @param {{targetRoot: string, accountKey: string, source: string}} target - 当前空间。
  * @param {boolean} dryRun - 是否只做预检。
  * @returns {{installed: Array<Record<string, string>>, skipped: Array<Record<string, string>>, personalizedCount: number, brandedCount: number, personalizationSourceAgentId: string, personalizationFingerprint: string, installingResidue: string[]}}
- *   新安装、已存在清单、赢单品牌和本地个性化校验结果。
+ *   新安装、已存在清单、来搜品牌和本地个性化校验结果。
  */
 function installBundle(manifest, target, dryRun) {
   const declaredAgentCount = Number(manifest.agentCount);
+  const bundleBrand = String(manifest.brand || "").trim();
   if (
     !Array.isArray(manifest.agents) ||
     !Number.isInteger(declaredAgentCount) ||
@@ -831,6 +884,9 @@ function installBundle(manifest, target, dryRun) {
     throw new Error(
       `Bundle Agent 数量异常：清单声明 ${manifest.agentCount ?? "未知"}，实际 ${manifest.agents?.length ?? "未知"}`,
     );
+  }
+  if (!bundleBrand) {
+    throw new Error("Bundle 缺少合法品牌名称");
   }
 
   const personalizationSource = resolvePersonalizationSource(
@@ -966,16 +1022,18 @@ function installBundle(manifest, target, dryRun) {
         task.manifestAgent,
         task.localAgentId,
         finalSkillDirectory,
+        bundleBrand,
       );
       validatePersonalization(task.stagingDirectory, personalizationSource);
     }
 
-    // 已完整安装的同来源 Agent 不重复创建，但会统一升级赢单名称与 Logo，并刷新当前
+    // 已完整安装的同来源 Agent 不重复创建，但会统一升级来搜名称与 Logo，并刷新当前
     // 账号最新的本地画像和记忆。写入前保留快照；后续任何一步失败都会恢复原文件。
     for (const skippedTask of skippedTasks) {
       const brandingSnapshot = applyBrandingToExistingAgent(
         skippedTask.directory,
         skippedTask.manifestAgent,
+        bundleBrand,
       );
       existingBrandingSnapshots.push(brandingSnapshot);
       const snapshot = personalizeAgentDirectory(
@@ -994,6 +1052,7 @@ function installBundle(manifest, target, dryRun) {
         skippedTask.manifestAgent,
         skippedTask.localAgentId,
         finalSkillDirectory,
+        bundleBrand,
       );
       validatePersonalization(skippedTask.directory, personalizationSource);
     }
@@ -1018,6 +1077,7 @@ function installBundle(manifest, target, dryRun) {
         task.manifestAgent,
         task.localAgentId,
         finalSkillDirectory,
+        bundleBrand,
       );
       validatePersonalization(task.finalDirectory, personalizationSource);
     }
@@ -1034,6 +1094,7 @@ function installBundle(manifest, target, dryRun) {
         skippedTask.manifestAgent,
         skippedTask.localAgentId,
         finalSkillDirectory,
+        bundleBrand,
       );
       validatePersonalization(skippedTask.directory, personalizationSource);
     }
@@ -1121,7 +1182,7 @@ function main() {
   }
   if (!argumentsResult.dryRun && result.brandedCount !== manifest.agentCount) {
     throw new Error(
-      `赢单品牌更新总数异常：${result.brandedCount}/${manifest.agentCount}`,
+      `来搜品牌更新总数异常：${result.brandedCount}/${manifest.agentCount}`,
     );
   }
   if (!argumentsResult.dryRun && result.installingResidue.length > 0) {
