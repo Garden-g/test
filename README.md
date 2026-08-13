@@ -5,6 +5,6 @@
 ## 安装
 
 1. 下载 [赢单 27 智能体安装包](release/yingdan-27-accio-agents-v1.2.0.zip)。
-2. 打开 [安装提示词](INSTALL_PROMPT.md)，复制其中的全部内容并发送给 Accio Work。
+2. 打开 [安装提示词](INSTALL_PROMPT.md)，复制其中的简短命令并发送给 Accio Work。
 3. 等待 Accio Work 完成安装。
 4. 安装成功后，完整退出并重新打开 Accio Work，即可在智能体列表中使用。
