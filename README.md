@@ -1,16 +1,18 @@
 # TokenMind 27 个 Accio Work 智能体套装
 
-一个适用于 Windows 和 macOS 的可移植 ZIP，包含 27 个一对一智能体。每个智能体都只内置一个对应的完整私有 Skill，并统一使用同一张 Logo。
+一个适用于 Windows 和 macOS 的可移植 ZIP，包含 27 个一对一智能体。每个智能体都只内置一个来自 [wmWW-G/WM_Skill](https://github.com/wmWW-G/WM_Skill) 的完整私有 Skill，并统一使用同一张 Logo。
+
+本版 Skill 来源提交：`f207a2e5bb7d7c7f50452e26d3dbc55b4b5ba8fb`
 
 ## 下载
 
-- [tokenmind-27-accio-agents-v1.1.0.zip](release/tokenmind-27-accio-agents-v1.1.0.zip)
-- [SHA-256 校验文件](release/tokenmind-27-accio-agents-v1.1.0.zip.sha256)
+- [tokenmind-27-accio-agents-v1.1.1.zip](release/tokenmind-27-accio-agents-v1.1.1.zip)
+- [SHA-256 校验文件](release/tokenmind-27-accio-agents-v1.1.1.zip.sha256)
 - [可直接复制给 Accio Work 的安装提示词](INSTALL_PROMPT.md)
 
-安装器会识别当前 Accio 个人或团队空间，为 27 个 Agent 分别生成唯一 `MID-*`，保留私有 Skill 和统一 Logo，不覆盖已有 Agent。安装完成后，它会从当前空间 `agentType=accio` 的主智能体读取本地 `USER.md` 和 `MEMORY.md`，以 TokenMind 标记块合并到 27 个 Agent 的同名文件中。
+安装器会识别当前 Accio 个人或团队空间，为27个 Agent 分别生成唯一 `MID-*`，保留私有 Skill 和统一 Logo，不覆盖已有 Agent。安装完成后，它会从当前空间 `agentType=accio` 的主智能体读取本地 `USER.md` 和 `MEMORY.md`，以 TokenMind 标记块合并到27个 Agent 的同名文件中。
 
-本次新增的 4 个运营智能体也提供独立安装包：
+以下4个运营智能体仍提供独立安装包：
 
 - [国际站关键词标题智能体](release/standalone/alibaba-title-keyword-builder/)
 - [国际站五条卖点智能体](release/standalone/alibaba-five-selling-points-writer/)
