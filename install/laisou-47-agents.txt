@@ -1,0 +1,19 @@
+Install the Laisou suite of 47 course agents into the current Accio Work space.
+
+Use Chinese for all user-facing communication, including progress updates, clarification questions, error messages, and the final installation report.
+
+Immutable ZIP URL:
+https://raw.githubusercontent.com/Garden-g/test/7f646de87cbfc078fdc2354c38a2458423e366df/release/laisou-47-accio-agents-v2.0.0.zip
+
+Expected SHA-256 of the ZIP file:
+52d078e374377fdb06fdd68314f2579eb5a4246bfc78bbc1e3fc4ef6fbd46c7c
+
+Download the immutable ZIP URL directly as binary data with curl to a new temporary file. On Windows, use curl.exe. Use fail-on-HTTP-error, follow redirects, and bounded retries. Do not download or hash a separate checksum file, a GitHub HTML page, or an error response. Calculate SHA-256 on the downloaded ZIP file itself and compare the lowercase hexadecimal value exactly with the expected value above.
+
+If the transfer command reports an HTTP or network error, report a download failure rather than a checksum mismatch. If the ZIP hash does not match, discard only that temporary ZIP and perform one clean download to a new temporary file. If the second ZIP hash still does not match, stop and report both the expected and actual hashes; do not retry indefinitely.
+
+After checksum verification succeeds, extract the ZIP with UTF-8 filename support. Read INSTALL_PROMPT.txt inside the extracted package, then run installer/install-windows.ps1 on Windows or installer/install-macos.sh on macOS. Do not use the Create Agent workflow, and do not overwrite unrelated agents.
+
+The names of all 47 agents must begin with "来搜 | ", and every agent must use the same Laisou logo. Merge the local user profile and memory from the current primary Accio agent into all 47 agents. If an older agent from the same source already exists, preserve its ID and directory and update its name, brand, logo, and fixed identity documents in place; do not create a duplicate.
+
+Report success only when the installer outputs INSTALL_OK, installed plus skipped equals 47, branded equals 47, personalized equals 47, and no .installing-* directory remains. Do not restart Accio automatically. When installation is complete, ask me in Chinese to fully quit and reopen Accio Work manually.
