@@ -1,0 +1,42 @@
+{
+  "agentId": "MID-F1FE0F15-E90B-5244-A47E-C3E62BB495FF",
+  "agentName": "来搜 | 领英客户名单智能体",
+  "baseAgentName": "领英客户名单智能体",
+  "zip": "/Users/garden/Self/TokenMindOmni/delivery/合作交付/磐西/Accio Work/智能体安装包/20-来搜 | 领英客户名单智能体/b2b-linkedin-customer-list-agent.zip",
+  "installPrompt": "/Users/garden/Self/TokenMindOmni/delivery/合作交付/磐西/Accio Work/智能体安装包/20-来搜 | 领英客户名单智能体/INSTALL_PROMPT.md",
+  "privateSkills": [
+    "b2b-linkedin-customer-list-xlsx"
+  ],
+  "tools": [
+    "list",
+    "read",
+    "grep",
+    "glob",
+    "ripgrep",
+    "write",
+    "edit",
+    "bash",
+    "process",
+    "ask_user",
+    "present_files",
+    "skill",
+    "web_search",
+    "web_fetch"
+  ],
+  "pluginIds": [
+    "spreadsheets"
+  ],
+  "courseRefs": [
+    "5-2"
+  ],
+  "sourceState": "GitHub已发布",
+  "sourcePath": "/Users/garden/Coding_Project/SkillCreateSpace/AccioSkillCreate/skills-by-category/GitHub已发布/智能体安装包-无品牌版/11-领英客户名单智能体/b2b-linkedin-customer-list-agent.zip",
+  "sourceZipSha256": "ed48e399d0184e2fd2889e7f1fb90db885408d8043ad801b3e15b3abf4d81da8",
+  "zipSha256": "8e77d4ddaaac2dea278c1ca08c1774713de426bb0528ce6afb9636f2a89f7f77",
+  "brand": {
+    "name": "来搜",
+    "nameFormat": "来搜 | {智能体名称}",
+    "logoAsset": "品牌资产/来搜-logo.png",
+    "logoSha256": "4487f0325a41e1d410c241b59b9c3a5de2c90e2f632171154198bd4710442813"
+  }
+}

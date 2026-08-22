@@ -1,0 +1,13 @@
+interface:
+  display_name: "竞品渠道客户搜索"
+  short_description: "从竞品经销商和渠道网络搜索客户并生成可核验表格名单"
+  default_prompt: "使用 $b2b-competitor-channel-xlsx 根据竞品名称或域名搜索经销商/渠道客户并生成 XLSX。"
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "accio"
+      description: "Accio tools web_search and ask_user for B2B customer discovery"
+
+policy:
+  allow_implicit_invocation: true

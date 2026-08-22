@@ -1,0 +1,8 @@
+interface:
+  display_name: "产品模特图"
+  short_description: "保持产品真实结构和比例，生成合规的上身、手持与人物使用图"
+  default_prompt: "使用 $b2b-product-model-image 根据产品参考图策划并生成一张真实比例的模特使用图。"
+
+policy:
+  allow_implicit_invocation: true
+

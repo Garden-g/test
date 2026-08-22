@@ -1,0 +1,42 @@
+{
+  "agentId": "MID-87B7BC30-3A93-5F0D-AC02-A80D5CFBB3D1",
+  "agentName": "来搜 | 邮件营销配图智能体",
+  "baseAgentName": "邮件营销配图智能体",
+  "zip": "/Users/garden/Self/TokenMindOmni/delivery/合作交付/磐西/Accio Work/智能体安装包/13-来搜 | 邮件营销配图智能体/b2b-email-marketing-visual-agent.zip",
+  "installPrompt": "/Users/garden/Self/TokenMindOmni/delivery/合作交付/磐西/Accio Work/智能体安装包/13-来搜 | 邮件营销配图智能体/INSTALL_PROMPT.md",
+  "privateSkills": [
+    "b2b-email-marketing-visual"
+  ],
+  "tools": [
+    "list",
+    "read",
+    "grep",
+    "glob",
+    "ripgrep",
+    "write",
+    "edit",
+    "bash",
+    "process",
+    "ask_user",
+    "present_files",
+    "skill",
+    "web_search",
+    "web_fetch",
+    "see_image",
+    "image_edit",
+    "image_generate"
+  ],
+  "pluginIds": [],
+  "courseRefs": [
+    "4-7"
+  ],
+  "sourceState": "GitHub未发布",
+  "sourcePath": "/Users/garden/Coding_Project/SkillCreateSpace/AccioSkillCreate/skills-by-category/GitHub未发布/b2b-email-marketing-visual",
+  "zipSha256": "9bb75182cf98705785407ae3507512e1de1573bd3f8d5f7dac4e2542e838b3c0",
+  "brand": {
+    "name": "来搜",
+    "nameFormat": "来搜 | {智能体名称}",
+    "logoAsset": "品牌资产/来搜-logo.png",
+    "logoSha256": "4487f0325a41e1d410c241b59b9c3a5de2c90e2f632171154198bd4710442813"
+  }
+}

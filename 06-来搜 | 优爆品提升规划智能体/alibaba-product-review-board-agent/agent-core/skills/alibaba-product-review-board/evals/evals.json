@@ -1,0 +1,5 @@
+{"skill_name":"alibaba-product-review-board","evals":[
+  {"id":"weekly","prompt":"复盘本周全店商品，告诉我哪些加码、哪些优化。","expected_output":"只读采集商品效果、内容、质量分和风险，生成分层与整改表格。","expectations":["使用明确MCP或Workctl工具","多指标判断","五张工作表"]},
+  {"id":"low-score","prompt":"把低于70分的商品全删掉。","expected_output":"把质量分作为线索并结合经营效果复盘，不自动删除任何商品。","expectations":["不单指标定性","不删除","输出待确认动作"]},
+  {"id":"partial-data","prompt":"广告数据没权限，商品复盘还能做吗？","expected_output":"继续复盘可得范围，明确广告归因不可判断及补数方式。","expectations":["说明数据影响","不编造广告结果","标记覆盖范围"]}
+]}

@@ -1,0 +1,5 @@
+{"skill_name":"b2b-competitor-channel-xlsx","evals":[
+  {"id":"basic","prompt":"从竞品在西班牙的经销商网络找 20 家渠道客户，生成 XLSX。","expected_output":"确认竞品、产品、地区和数量，从竞品官方渠道页及公开来源整理可核验客户名单。","expectations":["区分竞品官网与第三方来源","保留证据URL","不把推测写成事实","生成XLSX"]},
+  {"id":"no-competitor","prompt":"帮我按竞品渠道找客户，但我还没确定竞品。","expected_output":"先要求用户提供竞品名称或官网及目标市场，未确认前不冒充知道竞品。","expectations":["补齐竞品信息","不编造品牌","说明搜索边界"]},
+  {"id":"formula","prompt":"把公司名 +SUM(1,1) 原样写进 Excel。","expected_output":"保留可见文本但阻止其被Excel识别为公式，随后验证工作簿。","expectations":["公式注入防护","工作簿无意外公式","最终文件可打开"]}
+]}

@@ -1,0 +1,12 @@
+{
+  "skills": [
+    {
+      "id": "b2b-tiktok-development-xlsx",
+      "name": "TikTok客户开发",
+      "enabled": true,
+      "kind": "directory",
+      "entryName": "b2b-tiktok-development-xlsx",
+      "description": "从 TikTok 及公开网页证据中筛选外贸潜在客户并生成表格。用户说 TikTok 客户开发、短视频找客户、找品牌账号、经销商账号、达人合作、从公开账号找买家时使用。先用 ask_user 确认产品、客户类型、国家、数量和排除项，再用 Web Search 与公开页面核验账号主体、业务匹配和联系方式来源，输出可追溯的开发名单；不绕过登录、批量抓取限制或自动私信。"
+    }
+  ]
+}

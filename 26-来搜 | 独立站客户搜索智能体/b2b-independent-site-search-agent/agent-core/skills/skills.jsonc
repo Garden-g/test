@@ -1,0 +1,12 @@
+{
+  "skills": [
+    {
+      "id": "b2b-independent-site-search-xlsx",
+      "name": "b2b-independent-site-search-xlsx",
+      "enabled": true,
+      "kind": "directory",
+      "entryName": "b2b-independent-site-search-xlsx",
+      "description": "独立站客户搜索 XLSX 技能。Use when the user wants to find overseas independent company websites, brand sites, wholesale sites, distributor sites, retail chains, or private-label buyers by product/category, customer type, and country using Google-style search operators, then export a verified Excel workbook."
+    }
+  ]
+}

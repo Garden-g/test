@@ -1,0 +1,13 @@
+interface:
+  display_name: "客户来访接待"
+  short_description: "按来访目标组织日程、展示证据、会议议题、人员分工与会后动作"
+  default_prompt: "使用 $b2b-customer-reception-planner 为这次客户来访制定接待流程、资料准备、会议议题和责任分工表格。"
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "accio"
+      description: "Accio ask_user, file reading, web search and workbook delivery tools"
+
+policy:
+  allow_implicit_invocation: true

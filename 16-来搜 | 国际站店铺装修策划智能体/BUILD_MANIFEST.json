@@ -1,0 +1,44 @@
+{
+  "agentId": "MID-2963614B-EF22-5348-8B89-F001C0717800",
+  "agentName": "来搜 | 国际站店铺装修策划智能体",
+  "baseAgentName": "国际站店铺装修策划智能体",
+  "zip": "/Users/garden/Self/TokenMindOmni/delivery/合作交付/磐西/Accio Work/智能体安装包/16-来搜 | 国际站店铺装修策划智能体/alibaba-store-decoration-planner-agent.zip",
+  "installPrompt": "/Users/garden/Self/TokenMindOmni/delivery/合作交付/磐西/Accio Work/智能体安装包/16-来搜 | 国际站店铺装修策划智能体/INSTALL_PROMPT.md",
+  "privateSkills": [
+    "alibaba-store-decoration-planner"
+  ],
+  "tools": [
+    "list",
+    "read",
+    "grep",
+    "glob",
+    "ripgrep",
+    "write",
+    "edit",
+    "bash",
+    "process",
+    "ask_user",
+    "present_files",
+    "skill",
+    "web_search",
+    "web_fetch",
+    "see_image",
+    "image_edit",
+    "image_generate"
+  ],
+  "pluginIds": [
+    "spreadsheets"
+  ],
+  "courseRefs": [
+    "4-10"
+  ],
+  "sourceState": "GitHub未发布",
+  "sourcePath": "/Users/garden/Coding_Project/SkillCreateSpace/AccioSkillCreate/skills-by-category/GitHub未发布/alibaba-store-decoration-planner",
+  "zipSha256": "dfad6ff1c9fb7be7ce7a987dcaf982ae6da20d60a902571c6081e9230a28049c",
+  "brand": {
+    "name": "来搜",
+    "nameFormat": "来搜 | {智能体名称}",
+    "logoAsset": "品牌资产/来搜-logo.png",
+    "logoSha256": "4487f0325a41e1d410c241b59b9c3a5de2c90e2f632171154198bd4710442813"
+  }
+}

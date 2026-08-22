@@ -1,0 +1,42 @@
+{
+  "agentId": "MID-3CD3D86B-9654-5F47-9BB3-4FC19B86EE46",
+  "agentName": "来搜 | 地图客户开发智能体",
+  "baseAgentName": "地图客户开发智能体",
+  "zip": "/Users/garden/Self/TokenMindOmni/delivery/合作交付/磐西/Accio Work/智能体安装包/19-来搜 | 地图客户开发智能体/b2b-maps-development-agent.zip",
+  "installPrompt": "/Users/garden/Self/TokenMindOmni/delivery/合作交付/磐西/Accio Work/智能体安装包/19-来搜 | 地图客户开发智能体/INSTALL_PROMPT.md",
+  "privateSkills": [
+    "b2b-maps-development-xlsx"
+  ],
+  "tools": [
+    "list",
+    "read",
+    "grep",
+    "glob",
+    "ripgrep",
+    "write",
+    "edit",
+    "bash",
+    "process",
+    "ask_user",
+    "present_files",
+    "skill",
+    "web_search",
+    "web_fetch"
+  ],
+  "pluginIds": [
+    "spreadsheets"
+  ],
+  "courseRefs": [
+    "5-2"
+  ],
+  "sourceState": "GitHub已发布",
+  "sourcePath": "/Users/garden/Coding_Project/SkillCreateSpace/AccioSkillCreate/skills-by-category/GitHub已发布/智能体安装包-无品牌版/10-地图客户开发智能体/b2b-maps-development-agent.zip",
+  "sourceZipSha256": "1cb384251173cd49c6fe1ce59279921622b35f2c0cf3fd2cbacd7a4011e4ad9a",
+  "zipSha256": "b95f30b224b8402971f47aba1b8853649a827711475ecf505a4f3be31f34e29d",
+  "brand": {
+    "name": "来搜",
+    "nameFormat": "来搜 | {智能体名称}",
+    "logoAsset": "品牌资产/来搜-logo.png",
+    "logoSha256": "4487f0325a41e1d410c241b59b9c3a5de2c90e2f632171154198bd4710442813"
+  }
+}

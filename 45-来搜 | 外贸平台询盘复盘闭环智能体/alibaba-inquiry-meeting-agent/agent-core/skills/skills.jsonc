@@ -1,0 +1,12 @@
+{
+  "skills": [
+    {
+      "id": "alibaba-inquiry-meeting",
+      "name": "alibaba-inquiry-meeting",
+      "enabled": true,
+      "kind": "directory",
+      "entryName": "alibaba-inquiry-meeting",
+      "description": "阿里国际站询盘复盘会后结果 XLSX 技能。用户要求\"开询盘分析会\"、\"跑一次询盘复盘\"、\"这周询盘拿出来看一下\"、\"分析业务员询盘跟进\"、\"逐个点评业务员询盘\"、\"复盘客服/销售接待质量\"、\"哪些询盘有问题\"时使用。面向老板、销售主管和管理者，运行后应等同于完成一次管理层询盘复盘：给出风险、责任人、管理判断、整改动作和下次复查指标。只读采集 inquiry、IM 会话、业务员接待质量和重点询盘；最终交付多 Sheet .xlsx，禁止发送消息、修改配置、发品、上传文件或消耗资源。"
+    }
+  ]
+}

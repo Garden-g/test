@@ -1,0 +1,12 @@
+{
+  "skills": [
+    {
+      "id": "b2b-facebook-development-xlsx",
+      "name": "b2b-facebook-development-xlsx",
+      "enabled": true,
+      "kind": "directory",
+      "entryName": "b2b-facebook-development-xlsx",
+      "description": "Facebook 客户开发 XLSX 技能。Use when the user wants to find overseas B2B company pages, local retailers, distributors, wholesalers, brands, or active social business pages from Facebook public search results, then export a verified Excel workbook."
+    }
+  ]
+}

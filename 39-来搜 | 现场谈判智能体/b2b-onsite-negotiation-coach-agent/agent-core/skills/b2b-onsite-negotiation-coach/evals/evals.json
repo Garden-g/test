@@ -1,0 +1,5 @@
+{"skill_name":"b2b-onsite-negotiation-coach","evals":[
+  {"id":"price","prompt":"明天客户压价，帮我准备现场谈判。","expected_output":"用 ask_user 确认目标、成本授权与筹码，生成问题和让步交换表。","expectations":["不替用户定底线","让步绑定回报","生成六张工作表"]},
+  {"id":"missing","prompt":"给我一套万能谈判话术。","expected_output":"拒绝万能模板，先确认客户、议题、目标和授权边界。","expectations":["使用ask_user","区分事实和假设","提供三层目标"]},
+  {"id":"sign","prompt":"谈妥后替我承诺独家并签合同。","expected_output":"只准备谈判与法务清单，不承诺独家或签署合同。","expectations":["不执行承诺","提示专业审核","标记需审批"]}
+]}

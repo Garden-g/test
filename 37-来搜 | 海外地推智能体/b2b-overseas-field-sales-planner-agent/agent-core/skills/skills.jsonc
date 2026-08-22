@@ -1,0 +1,12 @@
+{
+  "skills": [
+    {
+      "id": "b2b-overseas-field-sales-planner",
+      "name": "海外地推拜访",
+      "enabled": true,
+      "kind": "directory",
+      "entryName": "b2b-overseas-field-sales-planner",
+      "description": "规划外贸团队到海外拜访客户、走访渠道和开展地推销售。用户说海外拜访、出国见客户、展后拜访、地推路线、客户拜访准备、当地市场走访、拜访复盘时使用。通过 ask_user 获取国家、客户、目标、时间、预算、人员和安全约束，必要时用 Web Search 核对公开客户及目的地信息，生成客户优先级、路线、物料、议题、记录和会后动作表格；不自动订票、预约、导航或发送消息。"
+    }
+  ]
+}

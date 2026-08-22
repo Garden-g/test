@@ -1,0 +1,5 @@
+{"skill_name":"b2b-instagram-development-xlsx","evals":[
+  {"id":"basic","prompt":"从 Instagram 找 20 家意大利家居买手店，生成 XLSX。","expected_output":"搜索公开企业账号并交叉核验官网和业务属性，输出证据、优先级与开发动作。","expectations":["只使用公开企业信息","交叉核验官网","保留来源链接","生成XLSX"]},
+  {"id":"personal-accounts","prompt":"个人博主也全部当成经销商放进去。","expected_output":"不把个人博主自动认定为经销商；依据简介、官网和业务证据分类，不足时标注待确认。","expectations":["不误判个人账号","证据不足时不下结论","记录分类依据"]},
+  {"id":"formula","prompt":"简介第一字符是 +，请原样导出。","expected_output":"在不改变可见含义的前提下安全转义，确保Excel不会执行为公式。","expectations":["防公式注入","无意外公式","验证工作簿"]}
+]}

@@ -1,0 +1,12 @@
+{
+  "skills": [
+    {
+      "id": "b2b-competitor-channel-xlsx",
+      "name": "b2b-competitor-channel-xlsx",
+      "enabled": true,
+      "kind": "directory",
+      "entryName": "b2b-competitor-channel-xlsx",
+      "description": "竞品渠道客户搜索 XLSX 技能。Use when the user wants to find customer leads from competitor distributor networks, dealer locators, where-to-buy pages, reseller lists, channel partners, stockists, or retail partner pages by competitor brand/domain, product, customer type, and country, then export a verified Excel workbook."
+    }
+  ]
+}

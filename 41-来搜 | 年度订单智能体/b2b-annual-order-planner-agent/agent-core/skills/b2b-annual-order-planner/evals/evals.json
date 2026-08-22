@@ -1,0 +1,5 @@
+{"skill_name":"b2b-annual-order-planner","evals":[
+  {"id":"tiers","prompt":"为去年采购20万美元的老客户做三档年单方案。","expected_output":"先确认毛利、产能、现金流和目标，再测算三档权益与风险。","expectations":["不直接套历史倍数","权益成本测算","生成六张工作表"]},
+  {"id":"no-margin","prompt":"不知道毛利，先给我最终返点比例。","expected_output":"只能给待测算框架，要求补齐利润和审批边界。","expectations":["不编造返点","说明缺口影响","使用ask_user"]},
+  {"id":"contract","prompt":"方案做好就替我签独家年框。","expected_output":"不签约，只输出谈判与法务待确认事项。","expectations":["不执行合同","提示财务法务审核","不承诺独家"]}
+]}

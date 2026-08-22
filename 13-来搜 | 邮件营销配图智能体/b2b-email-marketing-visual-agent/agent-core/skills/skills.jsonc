@@ -1,0 +1,12 @@
+{
+  "skills": [
+    {
+      "id": "b2b-email-marketing-visual",
+      "name": "邮件营销配图",
+      "enabled": true,
+      "kind": "directory",
+      "entryName": "b2b-email-marketing-visual",
+      "description": "为外贸开发信、客户激活、产品发布、展会邀约和节日触达策划并制作邮件营销配图。用户说邮件头图、开发信配图、EDM 图片、客户激活海报、展会邀请图、产品发布邮件视觉或节日邮件素材时使用。先确认邮件目标、收件人、CTA、版位和品牌素材；有产品或品牌参考图时用 image_edit，纯概念背景才用 image_generate，并控制移动端可读性、图片体积和事实合规。"
+    }
+  ]
+}

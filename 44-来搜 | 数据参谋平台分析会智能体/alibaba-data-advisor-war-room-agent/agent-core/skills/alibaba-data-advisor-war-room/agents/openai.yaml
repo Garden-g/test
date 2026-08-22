@@ -1,0 +1,4 @@
+interface:
+  display_name: "数据参谋平台分析会"
+  short_description: "把数据参谋真实数据诊断成三页老板经营分析表格"
+  default_prompt: "使用 $alibaba-data-advisor-war-room 按最近一周生成阿里国际站数据参谋平台分析会 XLSX。先采集真实经营数据，再由运营专家逐条判断发生了什么、核心原因和解决方案；最终只保留经营结论、经营问题诊断、行动与复查3个 Sheet。数据没有返回的字段不要展示，负责人缺失时使用运营或业务。"

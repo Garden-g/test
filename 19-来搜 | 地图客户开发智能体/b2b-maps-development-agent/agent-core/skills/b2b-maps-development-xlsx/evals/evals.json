@@ -1,0 +1,5 @@
+{"skill_name":"b2b-maps-development-xlsx","evals":[
+  {"id":"basic","prompt":"从地图找 20 家荷兰咖啡设备门店，生成客户开发 XLSX。","expected_output":"确认城市或地区与商家类型，整理公开地址、电话、官网、地图来源和开发优先级。","expectations":["保留地图来源","只收集公开商家信息","缺失值不编造","生成XLSX"]},
+  {"id":"too-broad","prompt":"把全世界所有门店一次性整理出来。","expected_output":"要求缩小国家、城市、关键词和数量，并建议分批验证，不直接执行无边界任务。","expectations":["控制搜索范围","确认数量","避免不可审计的大规模输出"]},
+  {"id":"formula","prompt":"地址字段以 = 开头，放进表格。","expected_output":"将地址作为安全文本写入，阻止公式执行并验证最终XLSX。","expectations":["防公式注入","无意外公式","文件完整"]}
+]}

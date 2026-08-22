@@ -1,0 +1,12 @@
+{
+  "skills": [
+    {
+      "id": "b2b-annual-order-planner",
+      "name": "年度订单方案",
+      "enabled": true,
+      "kind": "directory",
+      "entryName": "b2b-annual-order-planner",
+      "description": "为外贸老客户、重点客户和渠道客户设计年度采购合作方案。用户说年度订单、年框、年度采购阶梯、返利权益、锁量锁价、年度合作谈判、老客户增量计划时使用。通过 ask_user 获取历史订单、利润、产能、现金流和审批边界，必要时用 Web Search 核对公开市场节点，生成三档年度目标、权益成本、履约条件、谈判路线和风险表格；不替用户承诺价格、返利、授信或合同条款。"
+    }
+  ]
+}

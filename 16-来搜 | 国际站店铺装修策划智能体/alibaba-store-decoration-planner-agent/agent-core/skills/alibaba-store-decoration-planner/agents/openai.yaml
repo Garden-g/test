@@ -1,0 +1,7 @@
+interface:
+  display_name: "国际站店铺装修策划"
+  short_description: "规划旺铺首页、产品分类、工厂实力、模块文案与装修素材"
+  default_prompt: "使用 $alibaba-store-decoration-planner 为当前 Alibaba.com 旺铺制定完整装修方案。"
+
+policy:
+  allow_implicit_invocation: true

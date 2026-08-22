@@ -1,0 +1,12 @@
+{
+  "skills": [
+    {
+      "id": "b2b-customer-reception-planner",
+      "name": "客户来访接待",
+      "enabled": true,
+      "kind": "directory",
+      "entryName": "b2b-customer-reception-planner",
+      "description": "为海外客户来访、验厂、展厅参观、商务会议和管理层会面制定接待方案。用户说客户来访、接待流程、验厂准备、会议议程、工厂参观、用餐礼品、接待分工、来访后跟进时使用。通过 ask_user 获取客户背景、来访目标、人员、时间、文化与饮食需求，必要时用 Web Search 核对公开信息，生成日程、展示证据、会议议题、责任分工、风险和会后动作表格；不自动预订、发送邀请或承诺交易条件。"
+    }
+  ]
+}

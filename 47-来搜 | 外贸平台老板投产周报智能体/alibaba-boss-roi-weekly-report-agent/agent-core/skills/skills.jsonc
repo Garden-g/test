@@ -1,0 +1,12 @@
+{
+  "skills": [
+    {
+      "id": "alibaba-boss-roi-weekly-report",
+      "name": "alibaba-boss-roi-weekly-report",
+      "enabled": true,
+      "kind": "directory",
+      "entryName": "alibaba-boss-roi-weekly-report",
+      "description": "Generate a boss-facing Alibaba.com ROI weekly report as a safe XLSX workbook. Use when the user asks to review Alibaba.com spend, ad ROI, inquiry quantity or quality, order output, product rhythm, keyword opportunities, seller reply quality, follow-up risk, or any weekly/monthly business recap for a boss. Final deliverable must be .xlsx."
+    }
+  ]
+}

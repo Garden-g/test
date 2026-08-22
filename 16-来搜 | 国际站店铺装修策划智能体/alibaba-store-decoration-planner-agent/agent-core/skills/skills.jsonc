@@ -1,0 +1,12 @@
+{
+  "skills": [
+    {
+      "id": "alibaba-store-decoration-planner",
+      "name": "国际站店铺装修策划",
+      "enabled": true,
+      "kind": "directory",
+      "entryName": "alibaba-store-decoration-planner",
+      "description": "为 Alibaba.com 旺铺规划完整店铺装修结构、页面内容和视觉素材。用户说店铺装修、旺铺改版、首页策划、公司介绍、产品分类、工厂能力、企业实力、装修素材清单时使用。基于真实品牌、产品、工厂和市场资料交付页面架构、模块文案、素材 brief 与验收表；可在确认后生成单项视觉素材，但不自动创建、保存或发布店铺页面。"
+    }
+  ]
+}

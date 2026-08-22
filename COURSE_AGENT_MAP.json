@@ -1,0 +1,315 @@
+{
+  "schemaVersion": 1,
+  "courses": {
+    "3-1": [
+      {
+        "agentName": "来搜 | 市场和客户定位分析智能体",
+        "skill": "alibaba-market-growth-planner",
+        "sourceState": "GitHub未发布"
+      }
+    ],
+    "3-2": [
+      {
+        "agentName": "来搜 | 市场趋势品及痛点分析智能体",
+        "skill": "alibaba-store-product-selection-planner",
+        "sourceState": "GitHub未发布"
+      }
+    ],
+    "3-3": [
+      {
+        "agentName": "来搜 | 国际站关键词标题智能体",
+        "skill": "alibaba-title-keyword-builder",
+        "sourceState": "GitHub已发布"
+      }
+    ],
+    "3-4": [
+      {
+        "agentName": "来搜 | 国际站关键词标题智能体",
+        "skill": "alibaba-title-keyword-builder",
+        "sourceState": "GitHub已发布"
+      },
+      {
+        "agentName": "来搜 | 国际站五条卖点智能体",
+        "skill": "alibaba-five-selling-points-writer",
+        "sourceState": "GitHub已发布"
+      }
+    ],
+    "3-5": [
+      {
+        "agentName": "来搜 | 广告询盘联合诊断智能体",
+        "skill": "alibaba-ad-inquiry-diagnosis",
+        "sourceState": "GitHub未发布"
+      }
+    ],
+    "3-6": [
+      {
+        "agentName": "来搜 | 优爆品提升规划智能体",
+        "skill": "alibaba-product-review-board",
+        "sourceState": "GitHub未发布"
+      }
+    ],
+    "4-1": [
+      {
+        "agentName": "来搜 | AI 产品设计智能体",
+        "skill": "b2b-ai-product-designer",
+        "sourceState": "GitHub未发布"
+      }
+    ],
+    "4-2": [
+      {
+        "agentName": "来搜 | 主副图生成智能体",
+        "skill": "alibaba-b2b-image-set-generator",
+        "sourceState": "GitHub已发布"
+      }
+    ],
+    "4-3": [
+      {
+        "agentName": "来搜 | 产品卖点图智能体",
+        "skill": "b2b-product-selling-point-image",
+        "sourceState": "GitHub未发布"
+      }
+    ],
+    "4-4": [
+      {
+        "agentName": "来搜 | 产品模特图智能体",
+        "skill": "b2b-product-model-image",
+        "sourceState": "GitHub未发布"
+      }
+    ],
+    "4-5": [
+      {
+        "agentName": "来搜 | 产品场景图智能体",
+        "skill": "b2b-product-scene-image",
+        "sourceState": "GitHub未发布"
+      }
+    ],
+    "4-6": [
+      {
+        "agentName": "来搜 | 产品特效图智能体",
+        "skill": "b2b-product-effect-image",
+        "sourceState": "GitHub未发布"
+      }
+    ],
+    "4-7": [
+      {
+        "agentName": "来搜 | 邮件营销配图智能体",
+        "skill": "b2b-email-marketing-visual",
+        "sourceState": "GitHub未发布"
+      }
+    ],
+    "4-8": [
+      {
+        "agentName": "来搜 | 视频营销素材智能体",
+        "skill": "b2b-video-marketing-assets",
+        "sourceState": "GitHub未发布"
+      }
+    ],
+    "4-9": [
+      {
+        "agentName": "来搜 | 国际站详情页策划智能体",
+        "skill": "alibaba-b2b-detail-page-visual-planner",
+        "sourceState": "GitHub已发布"
+      }
+    ],
+    "4-10": [
+      {
+        "agentName": "来搜 | 国际站店铺装修策划智能体",
+        "skill": "alibaba-store-decoration-planner",
+        "sourceState": "GitHub未发布"
+      }
+    ],
+    "5-2": [
+      {
+        "agentName": "来搜 | 谷歌搜索找客户智能体",
+        "skill": "b2b-google-search",
+        "sourceState": "GitHub已发布"
+      },
+      {
+        "agentName": "来搜 | 谷歌地图找客户智能体",
+        "skill": "b2b-google-maps",
+        "sourceState": "GitHub已发布"
+      },
+      {
+        "agentName": "来搜 | 地图客户开发智能体",
+        "skill": "b2b-maps-development-xlsx",
+        "sourceState": "GitHub已发布"
+      },
+      {
+        "agentName": "来搜 | 领英客户名单智能体",
+        "skill": "b2b-linkedin-customer-list-xlsx",
+        "sourceState": "GitHub已发布"
+      }
+    ],
+    "5-3": [
+      {
+        "agentName": "来搜 | 脸书主页找客户智能体",
+        "skill": "b2b-facebook-search",
+        "sourceState": "GitHub已发布"
+      },
+      {
+        "agentName": "来搜 | 脸书客户开发智能体",
+        "skill": "b2b-facebook-development-xlsx",
+        "sourceState": "GitHub已发布"
+      },
+      {
+        "agentName": "来搜 | 图片社媒客户开发智能体",
+        "skill": "b2b-instagram-development-xlsx",
+        "sourceState": "GitHub已发布"
+      },
+      {
+        "agentName": "来搜 | YouTube 客户开发智能体",
+        "skill": "b2b-youtube-development-xlsx",
+        "sourceState": "GitHub未发布"
+      },
+      {
+        "agentName": "来搜 | TikTok 客户开发智能体",
+        "skill": "b2b-tiktok-development-xlsx",
+        "sourceState": "GitHub未发布"
+      }
+    ],
+    "5-4": [
+      {
+        "agentName": "来搜 | 独立站客户搜索智能体",
+        "skill": "b2b-independent-site-search-xlsx",
+        "sourceState": "GitHub已发布"
+      },
+      {
+        "agentName": "来搜 | 组织协会客户搜索智能体",
+        "skill": "b2b-association-members-xlsx",
+        "sourceState": "GitHub已发布"
+      },
+      {
+        "agentName": "来搜 | 展会名单客户开发智能体",
+        "skill": "b2b-trade-show-leads-xlsx",
+        "sourceState": "GitHub已发布"
+      },
+      {
+        "agentName": "来搜 | 黄页客户搜索智能体",
+        "skill": "b2b-yellow-pages-xlsx",
+        "sourceState": "GitHub已发布"
+      },
+      {
+        "agentName": "来搜 | 企业平台客户搜索智能体",
+        "skill": "b2b-tob-platform-search-xlsx",
+        "sourceState": "GitHub已发布"
+      },
+      {
+        "agentName": "来搜 | 竞品渠道客户搜索智能体",
+        "skill": "b2b-competitor-channel-xlsx",
+        "sourceState": "GitHub已发布"
+      }
+    ],
+    "6-1": [
+      {
+        "agentName": "来搜 | 公司背调报告智能体",
+        "skill": "company-background-check-xlsx",
+        "sourceState": "GitHub已发布"
+      }
+    ],
+    "6-2": [
+      {
+        "agentName": "来搜 | 外贸市场调研智能体",
+        "skill": "b2b-market-research",
+        "sourceState": "GitHub未发布"
+      }
+    ],
+    "6-3": [
+      {
+        "agentName": "来搜 | 开发信撰写智能体",
+        "skill": "b2b-cold-email-writer",
+        "sourceState": "GitHub未发布"
+      }
+    ],
+    "7-1": [
+      {
+        "agentName": "来搜 | 外贸案例谈判专家智能体",
+        "skill": "b2b-negotiation-case-expert",
+        "sourceState": "GitHub已发布"
+      }
+    ],
+    "7-2": [
+      {
+        "agentName": "来搜 | 展会营销策划智能体",
+        "skill": "b2b-trade-show-campaign-planner",
+        "sourceState": "GitHub未发布"
+      }
+    ],
+    "7-3": [
+      {
+        "agentName": "来搜 | 海外地推智能体",
+        "skill": "b2b-overseas-field-sales-planner",
+        "sourceState": "GitHub未发布"
+      }
+    ],
+    "7-4": [
+      {
+        "agentName": "来搜 | 客户接待智能体",
+        "skill": "b2b-customer-reception-planner",
+        "sourceState": "GitHub未发布"
+      }
+    ],
+    "7-5": [
+      {
+        "agentName": "来搜 | 现场谈判智能体",
+        "skill": "b2b-onsite-negotiation-coach",
+        "sourceState": "GitHub未发布"
+      }
+    ],
+    "7-7": [
+      {
+        "agentName": "来搜 | 产品营销智能体",
+        "skill": "b2b-product-marketing-planner",
+        "sourceState": "GitHub未发布"
+      }
+    ],
+    "7-8": [
+      {
+        "agentName": "来搜 | 年度订单智能体",
+        "skill": "b2b-annual-order-planner",
+        "sourceState": "GitHub未发布"
+      }
+    ],
+    "7-9": [
+      {
+        "agentName": "来搜 | 代理商方案智能体",
+        "skill": "b2b-distributor-program-planner",
+        "sourceState": "GitHub未发布"
+      }
+    ],
+    "8-1": [
+      {
+        "agentName": "来搜 | 老板经营异常晨会智能体",
+        "skill": "alibaba-boss-daily-pulse",
+        "sourceState": "GitHub已发布"
+      }
+    ],
+    "8-2": [
+      {
+        "agentName": "来搜 | 数据参谋平台分析会智能体",
+        "skill": "alibaba-data-advisor-war-room",
+        "sourceState": "GitHub已发布"
+      }
+    ],
+    "8-3": [
+      {
+        "agentName": "来搜 | 外贸平台询盘复盘闭环智能体",
+        "skill": "alibaba-inquiry-meeting",
+        "sourceState": "GitHub已发布"
+      }
+    ],
+    "8-4": [
+      {
+        "agentName": "来搜 | 外贸平台店铺经营诊断报告智能体",
+        "skill": "alibaba-shop-operation-report",
+        "sourceState": "GitHub已发布"
+      }
+    ],
+    "8-5": [
+      {
+        "agentName": "来搜 | 外贸平台老板投产周报智能体",
+        "skill": "alibaba-boss-roi-weekly-report",
+        "sourceState": "GitHub已发布"
+      }
+    ]
+  }
+}

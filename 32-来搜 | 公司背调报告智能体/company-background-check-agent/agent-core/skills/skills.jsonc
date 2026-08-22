@@ -1,0 +1,12 @@
+{
+  "skills": [
+    {
+      "id": "company-background-check-xlsx",
+      "name": "company-background-check-xlsx",
+      "enabled": true,
+      "kind": "directory",
+      "entryName": "company-background-check-xlsx",
+      "description": "国家 + 公司名背调报告 XLSX 技能。用户只给国家和公司名时，用 Accio 的 web_search、web_fetch、ask_user，以及 Browser Extension 操作 Apify Actor 页面，先确认正确官网 domain，再收集公开网页信息、运行 Apify 背调 Actor，并生成可交付的多 Sheet .xlsx 背调报告。触发场景包括“帮我背调这家公司”“查一下某国家某公司”“国家+公司名做背调”“生成公司背调xlsx”“用Apify跑这个公司官网”等。"
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "skill_name": "company-background-check-xlsx",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "帮我背调一下 United Arab Emirates 的 Yellow Door Energy，最终给我 xlsx。",
+      "expected_output": "先用 web_search 确认 Yellow Door Energy 的官方官网 domain，再用 web_fetch 抓取官网和公开来源；Apify Actor 输入只填完整官网 URL；最终生成只包含背调报告、联系信息、开发行动计划 3 个可见 Sheet 的 .xlsx。",
+      "files": [],
+      "expectations": [
+        "确认官网时没有把 LinkedIn、目录站或新闻页当作 domain",
+        "Apify input 是完整官网 URL，例如 https://www.yellowdoorenergy.com/",
+        "联系信息 Sheet 顶部提取重复公司固定字段，联系人明细不重复展示 company_* 字段",
+        "联系信息 Sheet 给出 B2B Business Development 优先联系建议，并高亮优先联系人",
+        "开发行动计划 Sheet 给出优先联系人、备用联系路径、产品切入、报价/样品、跟进节奏、待问问题、风险核验和英文开发信",
+        "最终 XLSX 只包含背调报告、联系信息、开发行动计划 3 个 Sheet，不创建隐藏 Sheet",
+        "第一张 Sheet 是背调报告，按十个章节输出并区分公开信息、合理推测、待确认和未找到可靠公开信息",
+        "近3年进口部分明确说明公司层面进口数据是否找到，不把国家/行业数据伪装成公司数据",
+        "对我司合作价值部分先读取 user.md/memory.md，找不到则 ask_user 或标注待补充",
+        "报告包含来源 URL 和未返回标记",
+        "最终交付文件格式是 .xlsx"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "查一下 Germany 的 Siemens 背调报告，发现同名主体时先问我。",
+      "expected_output": "搜索 Germany + Siemens 后识别可能存在集团/子公司/地区主体差异；如果无法确定具体背调对象，使用 ask_user 让用户确认；确认后再继续 web_fetch 和 Apify。",
+      "files": [],
+      "expectations": [
+        "存在多个候选公司或官网时调用 ask_user",
+        "用户确认前不运行 Apify Actor",
+        "如果 Apify 使用首个官网 domain 失败，会回到 web_search/web_fetch 查找备用 domain 并记录尝试结果",
+        "背调报告的风险/待确认内容记录主体选择依据",
+        "如果 Apify 返回联系人，联系人明细包含 BD 优先级和建议原因",
+        "背调报告 Sheet 保留十章节结构，即使部分字段未找到也要写未找到可靠公开信息"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "给我做 USA OpenAI 的公司背调 xlsx。",
+      "expected_output": "确认 OpenAI 官方官网并抓取官网、关于、新闻等公开页面；运行 Apify Actor 时只输入官方 domain；最终报告不编造联系人、电话、管理层或负面信息。",
+      "files": [],
+      "expectations": [
+        "web_search 和 web_fetch 证据都被记录",
+        "缺失字段写未返回",
+        "Apify 结果中重复的公司字段被上提，联系人表只保留业务开发相关字段",
+        "联系信息 Sheet 记录输入 domain、备用 domain 尝试、失败原因或重试说明",
+        "开发行动计划 Sheet 将背调结论转成可执行 BD 跟进动作",
+        "英文开发信体现已经研究过客户，并以低门槛问题结尾",
+        "最终回复说明 Apify 状态和 xlsx 路径"
+      ]
+    }
+  ]
+}

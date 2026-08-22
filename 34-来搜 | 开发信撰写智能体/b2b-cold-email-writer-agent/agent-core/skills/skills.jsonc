@@ -1,0 +1,12 @@
+{
+  "skills": [
+    {
+      "id": "b2b-cold-email-writer",
+      "name": "高回复开发信",
+      "enabled": true,
+      "kind": "directory",
+      "entryName": "b2b-cold-email-writer",
+      "description": "为外贸潜在客户撰写有公开证据支撑的英文开发信与跟进序列。用户说写开发信、开发邮件、客户激活、沉睡客户唤醒、提高回复率、首封邮件、跟进邮件、RFQ 回复时使用。先用 ask_user 确认客户、产品、价值证据、语气和唯一行动目标，必要时用 Web Search 核对客户公开信息，生成个性化邮件、证据映射和发送计划表格；不编造成绩、自动发送或保证回复率。"
+    }
+  ]
+}

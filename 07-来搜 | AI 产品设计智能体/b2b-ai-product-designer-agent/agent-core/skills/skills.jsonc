@@ -1,0 +1,12 @@
+{
+  "skills": [
+    {
+      "id": "b2b-ai-product-designer",
+      "name": "AI 产品设计",
+      "enabled": true,
+      "kind": "directory",
+      "entryName": "b2b-ai-product-designer",
+      "description": "为外贸 B2B 产品形成可验证的新品概念与设计 brief。用户说 AI 产品设计、新品概念、产品差异化、功能组合、外观方向、产品线延伸或把客户痛点转成产品方案时使用。基于用户资料、客户证据和公开研究提出概念、取舍、验证计划与可选概念图；不把概念稿写成已量产产品，也不替代工程、合规或专利审查。"
+    }
+  ]
+}

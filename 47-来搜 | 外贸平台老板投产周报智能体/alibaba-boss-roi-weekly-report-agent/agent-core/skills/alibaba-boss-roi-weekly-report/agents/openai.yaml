@@ -1,0 +1,7 @@
+interface:
+  display_name: "阿里老板投产周报"
+  short_description: "生成阿里国际站老板投产复盘表格并明确标记数据边界"
+  default_prompt: "Use $alibaba-boss-roi-weekly-report to generate an Alibaba.com boss ROI weekly report as an XLSX workbook. After analysis, write the Agent narrative layer yourself from narrative_brief.json so the workbook reads like a boss-facing business summary, not a template."
+
+policy:
+  allow_implicit_invocation: true

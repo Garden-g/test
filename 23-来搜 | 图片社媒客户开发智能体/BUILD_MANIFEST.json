@@ -1,0 +1,42 @@
+{
+  "agentId": "MID-E0DEFF25-E59C-56B2-BB0A-34C24236BA8E",
+  "agentName": "来搜 | 图片社媒客户开发智能体",
+  "baseAgentName": "图片社媒客户开发智能体",
+  "zip": "/Users/garden/Self/TokenMindOmni/delivery/合作交付/磐西/Accio Work/智能体安装包/23-来搜 | 图片社媒客户开发智能体/b2b-instagram-development-agent.zip",
+  "installPrompt": "/Users/garden/Self/TokenMindOmni/delivery/合作交付/磐西/Accio Work/智能体安装包/23-来搜 | 图片社媒客户开发智能体/INSTALL_PROMPT.md",
+  "privateSkills": [
+    "b2b-instagram-development-xlsx"
+  ],
+  "tools": [
+    "list",
+    "read",
+    "grep",
+    "glob",
+    "ripgrep",
+    "write",
+    "edit",
+    "bash",
+    "process",
+    "ask_user",
+    "present_files",
+    "skill",
+    "web_search",
+    "web_fetch"
+  ],
+  "pluginIds": [
+    "spreadsheets"
+  ],
+  "courseRefs": [
+    "5-3"
+  ],
+  "sourceState": "GitHub已发布",
+  "sourcePath": "/Users/garden/Coding_Project/SkillCreateSpace/AccioSkillCreate/skills-by-category/GitHub已发布/智能体安装包-无品牌版/14-图片社媒客户开发智能体/b2b-instagram-development-agent.zip",
+  "sourceZipSha256": "d90d316b40e30017e7912f28915726480cf0487f6beca9e0ef35b3cecd4b4fc1",
+  "zipSha256": "bf7f81baec82163fd5733c543c9b88947a7c177905f4b7269d9821cfc428e1f7",
+  "brand": {
+    "name": "来搜",
+    "nameFormat": "来搜 | {智能体名称}",
+    "logoAsset": "品牌资产/来搜-logo.png",
+    "logoSha256": "4487f0325a41e1d410c241b59b9c3a5de2c90e2f632171154198bd4710442813"
+  }
+}

@@ -1,0 +1,7 @@
+interface:
+  display_name: "老板经营异常晨会"
+  short_description: "把店铺异常诊断成三页简单直接的老板晨会表格"
+  default_prompt: "使用 $alibaba-boss-daily-pulse 生成阿里国际站老板经营异常晨会 XLSX。先采集最近可用的真实数据，再由运营专家判断今天发生了什么、核心原因和解决方案；最终只保留今天先看、异常原因、今天行动3个 Sheet。数据没有返回的字段不要展示，负责人缺失时使用运营或业务。"
+
+policy:
+  allow_implicit_invocation: true

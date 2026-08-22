@@ -1,0 +1,13 @@
+interface:
+  display_name: "国际代理商方案"
+  short_description: "设计代理画像、等级权益、区域边界、考核机制、谈判与退出条件"
+  default_prompt: "使用 $b2b-distributor-program-planner 设计国际代理商招募、等级权益、考核边界和谈判清单表格。"
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "accio"
+      description: "Accio ask_user, file reading, web search and workbook delivery tools"
+
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,42 @@
+{
+  "agentId": "MID-02700E5D-2D42-5D30-9D80-2E11B7D81BEC",
+  "agentName": "来搜 | YouTube 客户开发智能体",
+  "baseAgentName": "YouTube 客户开发智能体",
+  "zip": "/Users/garden/Self/TokenMindOmni/delivery/合作交付/磐西/Accio Work/智能体安装包/24-来搜 | YouTube 客户开发智能体/b2b-youtube-development-xlsx-agent.zip",
+  "installPrompt": "/Users/garden/Self/TokenMindOmni/delivery/合作交付/磐西/Accio Work/智能体安装包/24-来搜 | YouTube 客户开发智能体/INSTALL_PROMPT.md",
+  "privateSkills": [
+    "b2b-youtube-development-xlsx"
+  ],
+  "tools": [
+    "list",
+    "read",
+    "grep",
+    "glob",
+    "ripgrep",
+    "write",
+    "edit",
+    "bash",
+    "process",
+    "ask_user",
+    "present_files",
+    "skill",
+    "web_search",
+    "web_fetch",
+    "browser"
+  ],
+  "pluginIds": [
+    "spreadsheets"
+  ],
+  "courseRefs": [
+    "5-3"
+  ],
+  "sourceState": "GitHub未发布",
+  "sourcePath": "/Users/garden/Coding_Project/SkillCreateSpace/AccioSkillCreate/skills-by-category/GitHub未发布/b2b-youtube-development-xlsx",
+  "zipSha256": "b03afc6e8e74c6818f11d251510f0c50eca5b36efbeac7eb1b878b4da5f0c927",
+  "brand": {
+    "name": "来搜",
+    "nameFormat": "来搜 | {智能体名称}",
+    "logoAsset": "品牌资产/来搜-logo.png",
+    "logoSha256": "4487f0325a41e1d410c241b59b9c3a5de2c90e2f632171154198bd4710442813"
+  }
+}

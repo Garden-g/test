@@ -1,0 +1,4 @@
+interface:
+  display_name: "详情页策划与生成"
+  short_description: "基于产品参考图策划并生成最多8张一致的国际站竖版详情图"
+  default_prompt: "使用 $alibaba-b2b-detail-page-visual-planner 识别我的产品图，规划不超过 8 张竖版详情图，并通过 image_edit 的 reference_images 保持产品一致性生成。"

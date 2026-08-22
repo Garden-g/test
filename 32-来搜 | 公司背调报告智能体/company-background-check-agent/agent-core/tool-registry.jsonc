@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "preset": "none",
+  "builtin": {
+    "include": [
+      "list",
+      "read",
+      "grep",
+      "glob",
+      "ripgrep",
+      "write",
+      "edit",
+      "bash",
+      "process",
+      "ask_user",
+      "present_files",
+      "skill",
+      "web_search",
+      "web_fetch",
+      "plugin"
+    ],
+    "exclude": []
+  },
+  "mcp": [],
+  "conditional": [],
+  "notes": "只开放完成该私有 Skill 所需的工具；外部写入、发送、发布、删除、预算和额度操作必须先确认。"
+}

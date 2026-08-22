@@ -1,0 +1,12 @@
+{
+  "skills": [
+    {
+      "id": "alibaba-market-growth-planner",
+      "name": "市场增长规划",
+      "enabled": true,
+      "kind": "directory",
+      "entryName": "alibaba-market-growth-planner",
+      "description": "为外贸企业做国家与区域市场增长规划。用户说国家市场优先级、哪些国家值得投、区域流量本地化、不同地区转化差、市场进入顺序、市场资源分配时使用。基于用户提供的店铺导出数据和公开 Web Search 证据，比较市场吸引力、产品适配、进入难度和承接缺口，生成市场优先级与行动表格；不直接读取或修改广告、商品、页面和店铺后台。"
+    }
+  ]
+}

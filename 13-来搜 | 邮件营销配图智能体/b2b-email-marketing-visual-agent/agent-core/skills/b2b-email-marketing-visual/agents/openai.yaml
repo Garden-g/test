@@ -1,0 +1,13 @@
+interface:
+  display_name: "邮件营销配图"
+  short_description: "为开发信、客户激活、产品发布和展会邀约制作轻量可信的邮件视觉"
+  default_prompt: "使用 $b2b-email-marketing-visual 根据这封邮件、客户和品牌素材，先确定唯一视觉目标，再制作移动端友好的邮件配图。"
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "accio"
+      description: "Accio ask_user, image inspection, image editing, web research and file delivery tools"
+
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,12 @@
+{
+  "skills": [
+    {
+      "id": "b2b-trade-show-leads-xlsx",
+      "name": "b2b-trade-show-leads-xlsx",
+      "enabled": true,
+      "kind": "directory",
+      "entryName": "b2b-trade-show-leads-xlsx",
+      "description": "展会名单客户开发 XLSX 技能。Use when the user wants to find overseas B2B customer leads from trade show exhibitor lists, exhibitor directories, brand lists, floor plans, show guides, or event websites by product/category, customer type, and country, then export a verified Excel workbook."
+    }
+  ]
+}

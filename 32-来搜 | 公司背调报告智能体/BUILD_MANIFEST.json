@@ -1,0 +1,43 @@
+{
+  "agentId": "MID-D73FDA75-D40A-5184-8F75-FC822ACC2D73",
+  "agentName": "来搜 | 公司背调报告智能体",
+  "baseAgentName": "公司背调报告智能体",
+  "zip": "/Users/garden/Self/TokenMindOmni/delivery/合作交付/磐西/Accio Work/智能体安装包/32-来搜 | 公司背调报告智能体/company-background-check-agent.zip",
+  "installPrompt": "/Users/garden/Self/TokenMindOmni/delivery/合作交付/磐西/Accio Work/智能体安装包/32-来搜 | 公司背调报告智能体/INSTALL_PROMPT.md",
+  "privateSkills": [
+    "company-background-check-xlsx"
+  ],
+  "tools": [
+    "list",
+    "read",
+    "grep",
+    "glob",
+    "ripgrep",
+    "write",
+    "edit",
+    "bash",
+    "process",
+    "ask_user",
+    "present_files",
+    "skill",
+    "web_search",
+    "web_fetch",
+    "plugin"
+  ],
+  "pluginIds": [
+    "spreadsheets"
+  ],
+  "courseRefs": [
+    "6-1"
+  ],
+  "sourceState": "GitHub已发布",
+  "sourcePath": "/Users/garden/Coding_Project/SkillCreateSpace/AccioSkillCreate/skills-by-category/GitHub已发布/智能体安装包-无品牌版/21-公司背调报告智能体/company-background-check-agent.zip",
+  "sourceZipSha256": "2d0bc8fccb739ed67edf30ab9d91abfda8e2fec16edb3564323f0dc8fcef1563",
+  "zipSha256": "91a1cfcc19cdc59f64c71c65f15d1a3a23fe19cd1f42388936e68b2204718a28",
+  "brand": {
+    "name": "来搜",
+    "nameFormat": "来搜 | {智能体名称}",
+    "logoAsset": "品牌资产/来搜-logo.png",
+    "logoSha256": "4487f0325a41e1d410c241b59b9c3a5de2c90e2f632171154198bd4710442813"
+  }
+}

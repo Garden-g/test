@@ -1,0 +1,15 @@
+interface:
+  display_name: "谷歌地图找客户"
+  short_description: "用谷歌地图查海外实体商家的电话、地址、官网和业务线索"
+  default_prompt: "Use $b2b-google-maps to find overseas B2B places from Google Maps and export CSV results."
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "apify"
+      description: "Apify MCP server accessed through mcpc session @apify"
+      transport: "streamable_http"
+      url: "https://mcp.apify.com"
+
+policy:
+  allow_implicit_invocation: true

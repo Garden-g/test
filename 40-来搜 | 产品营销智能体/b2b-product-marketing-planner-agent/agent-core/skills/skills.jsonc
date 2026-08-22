@@ -1,0 +1,12 @@
+{
+  "skills": [
+    {
+      "id": "b2b-product-marketing-planner",
+      "name": "产品营销策划",
+      "enabled": true,
+      "kind": "directory",
+      "entryName": "b2b-product-marketing-planner",
+      "description": "把外贸产品资料转成面向目标客户的产品营销方案。用户说产品怎么推广、新品营销、客户分层营销、营销活动、价值主张、内容节奏、老客户激活、产品卖不动怎么办时使用。先用 ask_user 确认产品事实、客户类型、目标市场、利润与履约边界，再用公开 Web Search 补充买家场景和市场证据，生成客户分层、信息主线、方案组合、内容计划和行动表格；不自动群发、投放或承诺优惠。"
+    }
+  ]
+}

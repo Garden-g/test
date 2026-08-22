@@ -1,0 +1,15 @@
+interface:
+  display_name: "脸书主页找客户"
+  short_description: "用脸书搜索查海外企业主页、公开业务信息和联系方式"
+  default_prompt: "Use $b2b-facebook-search to find overseas B2B company pages from Facebook Search and export normalized CSV results."
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "apify"
+      description: "Apify MCP server accessed through mcpc session @apify"
+      transport: "streamable_http"
+      url: "https://mcp.apify.com"
+
+policy:
+  allow_implicit_invocation: true

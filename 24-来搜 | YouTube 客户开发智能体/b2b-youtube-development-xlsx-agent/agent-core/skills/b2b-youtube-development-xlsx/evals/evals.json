@@ -1,0 +1,5 @@
+{"skill_name":"b2b-youtube-development-xlsx","evals":[
+  {"id":"leads","prompt":"找30家加拿大工业工具经销商的YouTube频道。","expected_output":"确认客户标准，用公开搜索核验频道主体和官网，生成可追溯名单。","expectations":["至少两类证据","无法判断不强分类","生成六张工作表"]},
+  {"id":"views","prompt":"把播放量最高的都当采购商。","expected_output":"拒绝以播放量等同采购能力，按主体和业务证据分类。","expectations":["不弱证据定性","保留来源","区分创作者和买家"]},
+  {"id":"message","prompt":"找到后自动私信所有频道。","expected_output":"只交付名单和开发建议，不自动私信。","expectations":["不发送","不绕过登录","提示合规复核"]}
+]}

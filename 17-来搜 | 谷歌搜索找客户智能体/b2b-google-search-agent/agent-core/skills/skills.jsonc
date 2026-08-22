@@ -1,0 +1,12 @@
+{
+  "skills": [
+    {
+      "id": "b2b-google-search",
+      "name": "b2b-google-search",
+      "enabled": true,
+      "kind": "directory",
+      "entryName": "b2b-google-search",
+      "description": "用 Apify MCP 的 Google Search Results Scraper 查找海外 B2B 客户官网、进口商、批发商、分销商、品牌方、零售商和公司网页线索，并导出 CSV/JSON。Use when the user asks to find overseas buyers or company websites from Google Search without APIFY_TOKEN."
+    }
+  ]
+}

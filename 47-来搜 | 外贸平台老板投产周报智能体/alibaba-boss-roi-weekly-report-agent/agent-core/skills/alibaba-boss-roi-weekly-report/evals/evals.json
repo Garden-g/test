@@ -1,0 +1,125 @@
+{
+  "skill_name": "alibaba-boss-roi-weekly-report",
+  "evals": [
+    {
+      "id": "default-boss-roi-xlsx",
+      "name": "默认老板投产周报",
+      "prompt": "老板要看本周阿里国际站平台花了多少钱，带来了多少询盘和订单，钱有没有回报。最终给我 xlsx。",
+      "description": "验证默认周报能生成老板可读的 8 页 XLSX，并优先回答钱花得值不值。",
+      "expected_output": "生成包含 8 个固定 sheet 的 XLSX，老板结论是一页纸，并通过 Excel 安全验证。",
+      "files": [
+        "raw/",
+        "outputs/report_data.json",
+        "outputs/analysis.json",
+        "outputs/narrative_brief.json",
+        "outputs/narrative.json",
+        "outputs/*.xlsx",
+        "eval_metadata.json",
+        "timing.json",
+        "grading.json"
+      ],
+      "expectations": [
+        "XLSX 文件存在且非空",
+        "使用当前 Accio Run 工作目录，不自行创建或修改 Run ID，原始数据、分析、文案和 XLSX 不复用其他对话目录",
+        "工作簿只包含 老板结论、投产看板、询盘质量、订单产出、商品节奏、关键词与广告机会、业务员回复与跟进、数据质量检查 8 个 sheet",
+        "工作簿不包含 数据来源、行动清单 或任何额外 sheet",
+        "老板结论 sheet 是老板一页纸，不超过 25 行、8 列，包含本周钱花得值不值、经营状态、最大风险、最大机会、老板拍板和 Top 行动",
+        "每个业务 sheet 顶部都有老板口语化总结，能直接说明本页结论、证据、今天动作和下周复查",
+        "老板口语化总结来自执行 Agent 根据 narrative_brief.json 写出的 narrative.json，不要求用户提供第三方 API key",
+        "narrative.json 不改变数字、周期、ROI 降级、负责人或优先级，只负责把结论和动作写得像人话",
+        "每个 sheet 都按「标题带 → 段落区 → 看板区 → 明细区」四段物理分开，不再把三种行结构塞在同一张表共用一套表头",
+        "每个 sheet 第 1 行是合并的标题带，包含 sheet 名、副标题和状态 pill；下方是 4 个段落行(老板口径/关键证据/今天动作/下周复查)，A 列写标签，B 列到末列合并写整段",
+        "每个 sheet 都包含可视化看板区，使用 openpyxl DataBarRule 条件格式而非 ASCII ■□ 字符（老板结论 sheet 可选不带 DataBar）",
+        "明细表前有独立表头行，freeze_panes 锚定在明细表头之下(行号≥9)，autoFilter 只覆盖明细范围(起点行≥8)，老板结论 sheet 因有两段短明细表不挂 autoFilter",
+        "8 个 sheet 都设置 sheet_properties.tabColor，按状态着色让老板一眼看到哪几个 sheet 红灯",
+        "状态色统一来自 STATUS_PALETTE：红灯/P0/预警/失血款 红色，黄灯/P1/待补信息 橙色，绿灯/健康/印钞款/高质量 绿色，未返回/不可判断 灰色弱化",
+        "未返回 / 不可判断 / 未拆人 / 周期错位 等占位单元格用浅灰底+斜体灰字弱化，不与正常数据抢视觉",
+        "投产看板 sheet 展示广告花费、询盘/商机、订单数、订单金额、商机成本和 ROI 是否可判断",
+        "广告账户诊断使用 HATEOAS diagnosis 的目标周结果，读取 data.data[0].result；旧工具内层 code=410 不能按外层 success:true 误判成功",
+        "订单按 fieldName_0 的日期和 start/limit 采到短页或空页，并记录 complete/truncated；未采完时订单数和金额只能视为下限",
+        "商品按自然日分页聚合，首屏 20 条不能当全量；工作簿或数据质量必须披露总数、采集数、排序和是否截断",
+        "订单金额或广告花费缺失时，ROI、成交质量、投产回收必须降级为不可判断",
+        "工作簿正文不出现 ## 等 Markdown 标记、原始 JSON、内部错误文本或外部 CRM 品牌名",
+        "XLSX 通过 unzip、openpyxl 和表对象/绘图对象残留扫描"
+      ]
+    },
+    {
+      "id": "inquiry-quality-meeting-xlsx",
+      "name": "询盘质量逐条复盘周报",
+      "prompt": "老板重点要看这周询盘质量，不要只给数量。把一周内的询盘都拉出来，显著购买意愿强烈的和 L 等级高的算高质量，只有问候或没采购动作的算低质量，还要看业务员有没有超时、只回 Hi、未跟进。最终给 xlsx。",
+      "description": "验证询盘质量 sheet 是否逐条分析会话/质检样本，并输出高质量、低质量、待补信息和业务员复盘动作。",
+      "expected_output": "生成 XLSX，询盘质量 sheet 保持原名，包含逐条询盘分析、购买信号、L 等级、低质原因、P0/P1 跟进风险和建议动作。",
+      "files": [
+        "raw/",
+        "outputs/report_data.json",
+        "outputs/analysis.json",
+        "outputs/narrative_brief.json",
+        "outputs/narrative.json",
+        "outputs/*.xlsx"
+      ],
+      "expectations": [
+        "询盘质量 sheet 存在且名称不改",
+        "询盘质量 sheet 顶部有合并标题带，紧接 4 行段落区(老板口径/关键证据/今天动作/下周复查)，说明本周询盘是值得追还是消耗业务精力",
+        "询盘建议动作经过 Agent 文案层改写，不出现大面积重复的模板动作",
+        "询盘质量 sheet 中间是 5 张漏斗看板卡(总询盘/高质量/低质量/待补信息/P0-P1 跟进压力)，使用 DataBar 条件格式而非 ASCII 字符",
+        "明细表前有独立表头行，freeze_panes 锚定在该行下方，autoFilter 范围只覆盖逐条询盘明细(因为询盘明细可能 60+ 行，冻结锚点是这张表最大的可读性提升)",
+        "询盘质量 sheet 至少逐条展示客户、业务员、国家或等级、需求摘要、购买信号或低质原因、下一步动作",
+        "高质量判断结合 L 等级和价格、MOQ、样品、规格、数量、交期、付款、定制、联系方式、采购计划等购买信号",
+        "低质量判断包含只有问候、无明确采购动作、无产品需求或无买家有效消息等原因",
+        "P0/P1 跟进风险能体现超时、未回、只回 Hi、重复回复、回复过短或未跟进",
+        "重点询盘包含下一步目标和建议跟进动作",
+        "如果会话明细未返回，询盘质量 sheet 明确写会话明细未返回且用质检/汇总降级判断",
+        "报告正文不出现原始对象、JSON 字段结构、## 等 Markdown 标记"
+      ]
+    },
+    {
+      "id": "keyword-ad-opportunity-xlsx",
+      "name": "关键词与广告机会周报",
+      "prompt": "老板要看广告关键词哪些继续投、哪些烧钱、哪些下个月可以提前抢资源。最终给 xlsx。",
+      "description": "验证关键词与广告机会 sheet 是否从投产看板拆出，并能说明金词、烧钱词、潜力词和次月资源。",
+      "expected_output": "生成 XLSX，关键词与广告机会 sheet 独立存在，含口语化总结、关键词分层和行动建议。",
+      "files": [
+        "raw/",
+        "outputs/report_data.json",
+        "outputs/analysis.json",
+        "outputs/narrative_brief.json",
+        "outputs/narrative.json",
+        "outputs/*.xlsx"
+      ],
+      "expectations": [
+        "关键词与广告机会 sheet 存在",
+        "关键词与广告机会 sheet 顶部按四段结构呈现：合并标题带 → 4 行段落区 → 4 张分层看板卡(金词/烧钱词/潜力词/拓展词，带 DataBar) → 关键词明细表",
+        "关键词动作经过 Agent 文案层合并或改写，避免逐词复制同一套话术",
+        "关键词与广告机会 sheet 包含金词、烧钱词、潜力词或拓展词分层，烧钱词看板卡用红色 DataBar 警示",
+        "关键词与广告机会 sheet 展示次月可打标资源或明确写未返回",
+        "关键词与广告机会 sheet 展示站内行为信号或明确写未返回",
+        "关键词动作不输出自动改价或自动投放指令，只输出复盘和人工确认动作"
+      ]
+    },
+    {
+      "id": "seller-reply-followup-xlsx",
+      "name": "业务员回复与跟进周报",
+      "prompt": "老板问业务员回复状态怎么样，有没有持续跟进，回复速度、专业度、态度都要看，最后输出 xlsx。",
+      "description": "验证业务员回复与跟进 sheet 能清楚表达平台可见回复、未跟进、超时和人效边界。",
+      "expected_output": "生成 XLSX，业务员回复与跟进 sheet 有响应指标、跟进风险和人效榜，不出现外部 CRM 品牌名。",
+      "files": [
+        "raw/",
+        "outputs/report_data.json",
+        "outputs/analysis.json",
+        "outputs/narrative_brief.json",
+        "outputs/narrative.json",
+        "outputs/*.xlsx"
+      ],
+      "expectations": [
+        "业务员回复与跟进 sheet 存在",
+        "业务员回复与跟进 sheet 顶部按四段结构呈现：合并标题带(包含 5 分钟回复率) → 4 行段落区 → 3 张承接压力看板卡(店铺 5 分钟回复率/12h+ 未回/未跟进风险，带 DataBar) → 业务员明细表",
+        "业务员回复与跟进 sheet 包含 5 分钟回复率、平均回复时长、12h+ 超时或未跟进指标",
+        "业务员回复与跟进 sheet 包含人员回复风险排行或热力图，能看出回复率、平均回复时长、超时、未跟进、重复回复的风险；预警状态用红色 DataBar 突出",
+        "业务员回复与跟进 sheet 在数据支持时做人效榜；数据不支持时在数据质量检查说明缺子账号明细，不硬分析",
+        "业务员专业度和态度被标注为需要抽样判断，不编造评分",
+        "数据质量检查 sheet 记录缺失数据和口径边界说明",
+        "业务员回复与跟进 sheet 不直接填入原始对象或底层字段结构"
+      ]
+    }
+  ]
+}

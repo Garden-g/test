@@ -1,0 +1,7 @@
+interface:
+  display_name: "国际站五条卖点生成"
+  short_description: "结合产品细节和商家画像生成五条英文 Sell Point"
+  default_prompt: "使用 $alibaba-five-selling-points-writer 根据我的产品名，读取商家画像并按需补问和调研，按阿里官方五维参考格式生成正好五条英文 Sell Point。"
+
+policy:
+  allow_implicit_invocation: true

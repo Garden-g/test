@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "preset": "none",
+  "builtin": {
+    "include": [
+      "list",
+      "read",
+      "grep",
+      "glob",
+      "ripgrep",
+      "write",
+      "edit",
+      "bash",
+      "process",
+      "ask_user",
+      "present_files",
+      "skill",
+      "see_image",
+      "web_search",
+      "image_generate",
+      "image_edit"
+    ],
+    "exclude": []
+  },
+  "mcp": [],
+  "conditional": [],
+  "notes": "仅使用完成业务所需的工具；外部写入、发布、发送、删除、预算和额度操作必须先确认。"
+}

@@ -1,0 +1,43 @@
+{
+  "agentId": "MID-5AEBB046-06B0-5671-A076-2285ED80AA65",
+  "agentName": "来搜 | 优爆品提升规划智能体",
+  "baseAgentName": "优爆品提升规划智能体",
+  "zip": "/Users/garden/Self/TokenMindOmni/delivery/合作交付/磐西/Accio Work/智能体安装包/06-来搜 | 优爆品提升规划智能体/alibaba-product-review-board-agent.zip",
+  "installPrompt": "/Users/garden/Self/TokenMindOmni/delivery/合作交付/磐西/Accio Work/智能体安装包/06-来搜 | 优爆品提升规划智能体/INSTALL_PROMPT.md",
+  "privateSkills": [
+    "alibaba-product-review-board"
+  ],
+  "tools": [
+    "list",
+    "read",
+    "grep",
+    "glob",
+    "ripgrep",
+    "write",
+    "edit",
+    "bash",
+    "process",
+    "ask_user",
+    "present_files",
+    "skill",
+    "web_search",
+    "web_fetch",
+    "workctl"
+  ],
+  "pluginIds": [
+    "alibaba-com-seller-assistant",
+    "spreadsheets"
+  ],
+  "courseRefs": [
+    "3-6"
+  ],
+  "sourceState": "GitHub未发布",
+  "sourcePath": "/Users/garden/Coding_Project/SkillCreateSpace/AccioSkillCreate/skills-by-category/GitHub未发布/alibaba-product-review-board",
+  "zipSha256": "0526d55c8efe6621bbca0aa86c968014a19f120543ddb327a356092fa1d931bf",
+  "brand": {
+    "name": "来搜",
+    "nameFormat": "来搜 | {智能体名称}",
+    "logoAsset": "品牌资产/来搜-logo.png",
+    "logoSha256": "4487f0325a41e1d410c241b59b9c3a5de2c90e2f632171154198bd4710442813"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "skills": [
+    {
+      "id": "alibaba-b2b-image-set-generator",
+      "name": "alibaba-b2b-image-set-generator",
+      "enabled": true,
+      "kind": "directory",
+      "entryName": "alibaba-b2b-image-set-generator",
+      "description": "Plan, prompt, and optionally generate exactly six separate 1:1 Alibaba.com B2B product images with dense, commercially finished visual hierarchy from a product keyword, description, uploaded product image, or image URL. Use for 国际站六图、阿里巴巴主图套图、高信息密度卖点图、封面主视觉、白底主图、场景图、细节图、参数图、工厂图、模特图或严格 JSON 生图 Prompt。First identify the product, build evidence-backed product-specific selling points, then create a layered commercial composition with a strong headline zone, dominant product hero, multiple evidence modules, supporting application/detail cards, and a procurement-confidence strip. Inspect inputs and every generated result with see_image, research buyer concerns with web_search, and preserve the same product and approved art direction through image_edit.reference_images. Without a real product image, deliver the plan and prompts first; only create a clearly labeled concept set after the user accepts the limitation."
+    }
+  ]
+}

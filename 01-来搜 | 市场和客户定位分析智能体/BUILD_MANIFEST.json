@@ -1,0 +1,41 @@
+{
+  "agentId": "MID-265400A0-7EE9-5949-AD67-EB06B8AA9D2B",
+  "agentName": "来搜 | 市场和客户定位分析智能体",
+  "baseAgentName": "市场和客户定位分析智能体",
+  "zip": "/Users/garden/Self/TokenMindOmni/delivery/合作交付/磐西/Accio Work/智能体安装包/01-来搜 | 市场和客户定位分析智能体/alibaba-market-growth-planner-agent.zip",
+  "installPrompt": "/Users/garden/Self/TokenMindOmni/delivery/合作交付/磐西/Accio Work/智能体安装包/01-来搜 | 市场和客户定位分析智能体/INSTALL_PROMPT.md",
+  "privateSkills": [
+    "alibaba-market-growth-planner"
+  ],
+  "tools": [
+    "list",
+    "read",
+    "grep",
+    "glob",
+    "ripgrep",
+    "write",
+    "edit",
+    "bash",
+    "process",
+    "ask_user",
+    "present_files",
+    "skill",
+    "web_search",
+    "web_fetch"
+  ],
+  "pluginIds": [
+    "spreadsheets"
+  ],
+  "courseRefs": [
+    "3-1"
+  ],
+  "sourceState": "GitHub未发布",
+  "sourcePath": "/Users/garden/Coding_Project/SkillCreateSpace/AccioSkillCreate/skills-by-category/GitHub未发布/alibaba-market-growth-planner",
+  "zipSha256": "84b3b99d209338541505f5e0e8cca820e27cafd32f5c7304e3d07a86423a9679",
+  "brand": {
+    "name": "来搜",
+    "nameFormat": "来搜 | {智能体名称}",
+    "logoAsset": "品牌资产/来搜-logo.png",
+    "logoSha256": "4487f0325a41e1d410c241b59b9c3a5de2c90e2f632171154198bd4710442813"
+  }
+}

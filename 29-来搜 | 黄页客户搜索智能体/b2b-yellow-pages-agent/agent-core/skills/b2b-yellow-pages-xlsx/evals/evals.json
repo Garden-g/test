@@ -1,0 +1,5 @@
+{"skill_name":"b2b-yellow-pages-xlsx","evals":[
+  {"id":"basic","prompt":"从加拿大黄页找 20 家商用厨房设备经销商，生成 XLSX。","expected_output":"确认地区、分类词和数量，从公开黄页记录整理主体、业务联系方式、官网候选和来源。","expectations":["保留黄页来源","核验官网候选","不编造缺失字段","生成XLSX"]},
+  {"id":"duplicate-listings","prompt":"同一家公司在多个城市黄页重复出现，全部保留。","expected_output":"优先按官网、电话、地址和主体证据去重；不同门店确有业务意义时保留并说明。","expectations":["进行证据化去重","不按名称粗暴合并","记录门店差异"]},
+  {"id":"formula","prompt":"电话字段以 + 开头，别让 Excel 改掉。","expected_output":"把以加号开头的电话作为安全文本保存，避免公式解析并保持可见号码。","expectations":["安全保存加号电话","无意外公式","验证工作簿"]}
+]}

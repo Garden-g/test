@@ -1,0 +1,5 @@
+{"skill_name":"b2b-tob-platform-search-xlsx","evals":[
+  {"id":"basic","prompt":"从欧洲 B2B 平台找 20 家工业传感器分销商，生成 XLSX。","expected_output":"确认平台范围、产品、地区和数量，区分平台商铺与企业官网并保留可核验证据。","expectations":["记录平台来源","核验企业主体","不把平台描述当全部事实","生成XLSX"]},
+  {"id":"platform-ambiguity","prompt":"从平台找客户，哪个平台都行。","expected_output":"先确认目标地区、产品、客户类型和可用平台范围，必要时给候选方案让用户选择。","expectations":["补齐搜索条件","不擅自扩大范围","说明平台差异"]},
+  {"id":"formula","prompt":"商铺备注为 +123，原样写入。","expected_output":"安全转义公式样式字符串，工作簿校验后再交付。","expectations":["防公式注入","无意外公式","校验XLSX"]}
+]}

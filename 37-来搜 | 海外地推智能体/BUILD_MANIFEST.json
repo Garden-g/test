@@ -1,0 +1,42 @@
+{
+  "agentId": "MID-BD8F1B93-9230-59AA-8BAA-9A82C16D845E",
+  "agentName": "来搜 | 海外地推智能体",
+  "baseAgentName": "海外地推智能体",
+  "zip": "/Users/garden/Self/TokenMindOmni/delivery/合作交付/磐西/Accio Work/智能体安装包/37-来搜 | 海外地推智能体/b2b-overseas-field-sales-planner-agent.zip",
+  "installPrompt": "/Users/garden/Self/TokenMindOmni/delivery/合作交付/磐西/Accio Work/智能体安装包/37-来搜 | 海外地推智能体/INSTALL_PROMPT.md",
+  "privateSkills": [
+    "b2b-overseas-field-sales-planner"
+  ],
+  "tools": [
+    "list",
+    "read",
+    "grep",
+    "glob",
+    "ripgrep",
+    "write",
+    "edit",
+    "bash",
+    "process",
+    "ask_user",
+    "present_files",
+    "skill",
+    "web_search",
+    "web_fetch",
+    "browser"
+  ],
+  "pluginIds": [
+    "spreadsheets"
+  ],
+  "courseRefs": [
+    "7-3"
+  ],
+  "sourceState": "GitHub未发布",
+  "sourcePath": "/Users/garden/Coding_Project/SkillCreateSpace/AccioSkillCreate/skills-by-category/GitHub未发布/b2b-overseas-field-sales-planner",
+  "zipSha256": "895208dfd5864b3740294e57cd916b56efc010572daf6aa5674186c0dd66e3dc",
+  "brand": {
+    "name": "来搜",
+    "nameFormat": "来搜 | {智能体名称}",
+    "logoAsset": "品牌资产/来搜-logo.png",
+    "logoSha256": "4487f0325a41e1d410c241b59b9c3a5de2c90e2f632171154198bd4710442813"
+  }
+}

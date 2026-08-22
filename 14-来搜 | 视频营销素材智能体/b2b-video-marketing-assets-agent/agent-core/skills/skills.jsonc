@@ -1,0 +1,12 @@
+{
+  "skills": [
+    {
+      "id": "b2b-video-marketing-assets",
+      "name": "视频营销素材",
+      "enabled": true,
+      "kind": "directory",
+      "entryName": "b2b-video-marketing-assets",
+      "description": "为外贸产品推广、客户开发、展会、社媒和销售跟进策划并按需生成短视频营销素材。用户说产品视频、营销短视频、展会预热视频、社媒视频、客户跟进视频、视频分镜、图生视频或需要把现有产品图做成动态素材时使用。先确认受众、渠道、时长、目标、素材和事实边界；先交分镜与生成清单，用户确认后才调用 video_generate_submit，并在完成返回视频 URL 后用 video_generate_status 回查一次。"
+    }
+  ]
+}

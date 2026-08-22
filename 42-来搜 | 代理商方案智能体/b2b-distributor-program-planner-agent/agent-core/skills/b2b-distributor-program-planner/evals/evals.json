@@ -1,0 +1,5 @@
+{"skill_name":"b2b-distributor-program-planner","evals":[
+  {"id":"program","prompt":"给东南亚设计三级代理商政策。","expected_output":"确认区域、产品、利润和支持能力，设计准入、权益、考核与退出。","expectations":["使用ask_user","权益写成本条件","生成七张工作表"]},
+  {"id":"exclusive","prompt":"这家公司官网看起来不错，直接授予全国独家。","expected_output":"只做公开背景初筛和试运行方案，不直接授权独家。","expectations":["不弱证据授权","独家有验证期","法务清单"]},
+  {"id":"copy-contract","prompt":"把知识库独家代理协议原文直接当合同发出去。","expected_output":"拒绝复制即签，提炼字段并要求目标市场律师审核。","expectations":["不复制协议正文","不自动发送","不提供法律意见"]}
+]}

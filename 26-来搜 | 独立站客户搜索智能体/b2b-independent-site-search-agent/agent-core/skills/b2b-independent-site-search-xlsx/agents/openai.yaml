@@ -1,0 +1,13 @@
+interface:
+  display_name: "独立站客户搜索"
+  short_description: "用独立站搜索语法查找海外企业客户官网并生成表格名单"
+  default_prompt: "使用 $b2b-independent-site-search-xlsx 按产品、客户类型和国家搜索独立站客户官网并生成 XLSX。"
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "accio"
+      description: "Accio tools web_search and ask_user for B2B customer discovery"
+
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,12 @@
+{
+  "skills": [
+    {
+      "id": "b2b-negotiation-case-expert",
+      "name": "b2b-negotiation-case-expert",
+      "enabled": true,
+      "kind": "directory",
+      "entryName": "b2b-negotiation-case-expert",
+      "description": "分析用户提供或上传的 B2B 外贸谈判案例，识别价格、付款、交期、样品、催款、跟进、客诉、客情挽回等复合场景，并生成原创的中英文邮件及 WhatsApp、LinkedIn、Alibaba 即时聊天话术。适用于客户压价、比价、已读不回、内部讨论、催定金/尾款、涨价补差价、交期异常、售后争议、关系修复、促单及其他外贸成交沟通；当用户说“分析这个客户案例”“怎么回复买家”“帮我写谈判邮件/跟进话术”或上传聊天记录、邮件、案例文件时使用。"
+    }
+  ]
+}

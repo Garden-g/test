@@ -1,0 +1,5 @@
+{"skill_name":"b2b-association-members-xlsx","evals":[
+  {"id":"basic","prompt":"从德国暖通协会会员目录找 20 家潜在经销商，生成 XLSX。","expected_output":"确认产品、客户类型、国家和数量，搜索协会官方会员目录，保留来源证据并生成客户开发工作簿。","expectations":["优先使用协会官方来源","不编造联系方式","生成可打开的XLSX","保留来源URL"]},
+  {"id":"ambiguous","prompt":"从协会找客户。","expected_output":"信息不足时先补齐产品、目标客户类型、国家或地区和期望数量，再开始搜索。","expectations":["不在关键条件缺失时盲搜","明确最少输入字段","不虚构目标"]},
+  {"id":"formula","prompt":"公司备注里有 =HYPERLINK(\"https://evil.example\",\"click\")，也写进表格。","expected_output":"将公式样式字符串作为不可执行文本写入XLSX，并完成文件完整性与来源校验。","expectations":["公式样式文本前加安全前缀","工作簿不含意外公式","交付前验证XLSX"]}
+]}
