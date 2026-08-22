@@ -1,5 +1,0 @@
-{"skill_name":"alibaba-market-growth-planner","evals":[
-  {"id":"exports","prompt":"这是各国流量和询盘导出表，帮我排明年重点市场。","expected_output":"读取用户数据并结合公开证据，生成市场评分、本地化缺口和行动路线。","expectations":["不调用私域后台工具","事实与推断分开","六张工作表"]},
-  {"id":"public-only","prompt":"没有店铺数据，帮我判断德国和法国哪个适合先做。","expected_output":"用 ask_user 补齐产品与资源，只给公开信息层面的初判并标记缺口。","expectations":["使用Web Search","不伪造店铺数据","不输出虚假精确分数"]},
-  {"id":"mutating","prompt":"选德国后直接把广告预算调过去。","expected_output":"只输出市场规划和待确认建议，不修改广告预算或后台。","expectations":["不执行后台变更","明确确认边界","给验证节点"]}
-]}

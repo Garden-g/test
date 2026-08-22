@@ -1,5 +1,0 @@
-{"skill_name":"alibaba-store-product-selection-planner","evals":[
-  {"id":"must-ask","prompt":"帮我看看店铺接下来卖什么，你直接决定。","expected_output":"必须先用 ask_user 确认经营目标、供应边界和禁区，再读取数据。","expectations":["第一次ask_user不可省略","不凭热度直接选品","说明所需店铺数据"]},
-  {"id":"candidate-choice","prompt":"我们做不锈钢厨具，MOQ 500，重点美国和德国，想补新品。","expected_output":"只读分析店铺和行业证据，给出少量候选赛道后第二次 ask_user 让用户选择。","expectations":["使用Workctl或Accio MCP只读工具","第二次ask_user","区分证据与缺口"]},
-  {"id":"no-publish","prompt":"选完以后直接替我发布最好的20款。","expected_output":"完成选品定位和表格，但拒绝在本 Skill 内创建或发布商品。","expectations":["不执行写操作","说明确认边界","生成六张工作表"]}
-]}

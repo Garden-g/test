@@ -1,5 +1,0 @@
-{"skill_name":"b2b-independent-site-search-xlsx","evals":[
-  {"id":"basic","prompt":"找 25 家澳大利亚实验室设备独立站客户，生成 XLSX。","expected_output":"围绕目标行业和地区搜索企业独立站，核验官网归属并输出来源、匹配依据和开发建议。","expectations":["核验官网而非目录页","保留来源URL","缺失信息明确标注","生成XLSX"]},
-  {"id":"directory-only","prompt":"搜索结果全是目录站，也直接当客户官网吗。","expected_output":"不把目录站直接当企业官网，继续核验主体；无法确认时标注为候选和待确认。","expectations":["区分官网与目录站","不夸大主体确认","保留核验状态"]},
-  {"id":"formula","prompt":"公司名为 =1+1，写进表格。","expected_output":"保留公司名的可见内容但防止Excel执行，交付前检查无意外公式。","expectations":["公式注入防护","工作簿无公式","文件可打开"]}
-]}

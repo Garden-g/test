@@ -1,4 +1,0 @@
-interface:
-  display_name: "主副图生成"
-  short_description: "识别产品卖点，生成六张高信息密度、多层级的国际站商业图"
-  default_prompt: "使用 $alibaba-b2b-image-set-generator 识别我的产品，先设计有依据的专属卖点，再生成 6 张视觉统一、高信息密度、包含多层证据模块的国际站商业主副图。"

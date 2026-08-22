@@ -1,7 +1,0 @@
-interface:
-  display_name: "国际站询盘复盘闭环"
-  short_description: "生成管理层询盘会后复盘、责任动作与追踪结果表格"
-  default_prompt: "Use $alibaba-inquiry-meeting to complete last week's Alibaba.com inquiry review and produce the post-review action-closure XLSX."
-
-policy:
-  allow_implicit_invocation: true

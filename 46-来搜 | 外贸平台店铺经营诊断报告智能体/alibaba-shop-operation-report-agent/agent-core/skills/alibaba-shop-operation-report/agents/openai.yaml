@@ -1,7 +1,0 @@
-interface:
-  display_name: "阿里店铺经营诊断报告"
-  short_description: "把店铺真实数据诊断成三页老板经营周报或月报表格"
-  default_prompt: "使用 $alibaba-shop-operation-report 生成阿里国际站老板经营周报或月报 XLSX。先采集真实数据，再由运营专家判断发生了什么、核心原因和解决方案；最终只保留本周结论、经营问题诊断、行动与复查3个 Sheet。数据没有返回的字段不要展示，负责人缺失时使用运营或业务。"
-
-policy:
-  allow_implicit_invocation: true

@@ -1,8 +1,0 @@
-interface:
-  display_name: "产品卖点图"
-  short_description: "把真实产品特征和采购价值转成证据清楚的商业卖点图"
-  default_prompt: "使用 $b2b-product-selling-point-image 为这个产品策划一张面向采购商的英文卖点图。"
-
-policy:
-  allow_implicit_invocation: true
-

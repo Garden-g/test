@@ -1,8 +1,0 @@
-interface:
-  display_name: "产品场景图"
-  short_description: "把真实产品放入可信应用环境，清楚表达用途、尺度和采购价值"
-  default_prompt: "使用 $b2b-product-scene-image 根据产品参考图设计一张可信的行业应用场景图。"
-
-policy:
-  allow_implicit_invocation: true
-

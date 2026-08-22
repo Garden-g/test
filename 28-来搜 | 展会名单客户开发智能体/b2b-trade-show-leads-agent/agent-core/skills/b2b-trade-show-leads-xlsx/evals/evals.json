@@ -1,5 +1,0 @@
-{"skill_name":"b2b-trade-show-leads-xlsx","evals":[
-  {"id":"basic","prompt":"从 2026 年德国包装展官方参展商目录找 30 家客户，生成 XLSX。","expected_output":"核验展会名称、年份和官方目录，从参展商证据整理企业、展位、官网与开发优先级。","expectations":["使用正确届次","优先官方参展商目录","保留来源URL","生成XLSX"]},
-  {"id":"year-missing","prompt":"从德国包装展找客户，但我不确定是哪一届。","expected_output":"先确认展会官方名称和届次；无法确认时列出候选并询问，不混用不同年份目录。","expectations":["不混淆展会届次","要求确认年份","记录来源边界"]},
-  {"id":"formula","prompt":"展位备注是 =WEBSERVICE(...)，写入表格。","expected_output":"将备注作为不可执行文本写入并验证XLSX无意外公式。","expectations":["公式注入防护","工作簿无公式","文件可打开"]}
-]}

@@ -1,4 +1,0 @@
-interface:
-  display_name: "外贸案例谈判专家"
-  short_description: "深入分析外贸谈判案例并生成邮件与多渠道双语成交沟通话术"
-  default_prompt: "使用 $b2b-negotiation-case-expert 分析我提供的外贸谈判案例，给出策略、理由及邮件和即时聊天的中英文话术。"
