@@ -1085,10 +1085,21 @@ function installBundle(manifest, target, dryRun) {
       manifestAgent.sourceAgentId,
     );
     if (existingSourceDirectory) {
-      const needsTemplateUpgrade = !isStructurallyCompleteExistingInstall(
-        existingSourceDirectory,
-        manifestAgent,
+      const existingProfile = readJsonc(
+        path.join(existingSourceDirectory, "profile.jsonc"),
       );
+      // Bundle 版本变化不代表每个 Agent 都发生了内容变化。逐 Agent 比较模板版本，
+      // 只原位替换真正更新过的模板；旧清单没有 templateVersion 时仍回退到结构校验。
+      const declaredTemplateVersion = String(
+        manifestAgent.templateVersion || "",
+      ).trim();
+      const needsTemplateUpgrade =
+        !isStructurallyCompleteExistingInstall(
+          existingSourceDirectory,
+          manifestAgent,
+        ) ||
+        (declaredTemplateVersion &&
+          existingProfile.version !== declaredTemplateVersion);
       const skippedEntry = {
         displayName: manifestAgent.displayName,
         sourceAgentId: manifestAgent.sourceAgentId,
