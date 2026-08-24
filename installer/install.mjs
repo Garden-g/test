@@ -172,6 +172,47 @@ function listPrivateSkillDirectories(agentDirectory) {
 }
 
 /**
+ * 读取 Bundle 为一个 Agent 声明的全部私有 Skill ID。
+ *
+ * 新版清单使用 runtimeSkillIds 数组支持一个 Agent 绑定多个私有 Skill；同时保留
+ * runtimeSkillId 作为旧清单兼容字段。这里统一规范化并拒绝空值、重复值，避免安装时
+ * 把目录或 installPath 绑定到错误的 Skill。
+ *
+ * @param {Record<string, unknown>} manifestAgent - Bundle 清单中的 Agent 项。
+ * @returns {string[]} 按清单顺序排列的私有 Skill ID。
+ * @throws {Error} 清单没有合法 Skill ID 或包含重复 ID 时抛出。
+ */
+function getRuntimeSkillIds(manifestAgent) {
+  const declaredIds = Array.isArray(manifestAgent.runtimeSkillIds)
+    ? manifestAgent.runtimeSkillIds
+    : [manifestAgent.runtimeSkillId];
+  const runtimeSkillIds = declaredIds.map((value) => String(value || "").trim());
+  if (runtimeSkillIds.length === 0 || runtimeSkillIds.some((value) => !value)) {
+    throw new Error(`${manifestAgent.displayName || "未命名 Agent"} 缺少合法私有 Skill ID`);
+  }
+  if (new Set(runtimeSkillIds).size !== runtimeSkillIds.length) {
+    throw new Error(`${manifestAgent.displayName || "未命名 Agent"} 的私有 Skill ID 重复`);
+  }
+  return runtimeSkillIds;
+}
+
+/**
+ * 计算清单内所有私有 Skill 在最终 Agent 目录中的安装路径。
+ *
+ * @param {string} agentDirectory - Agent 最终目录。
+ * @param {Record<string, unknown>} manifestAgent - Bundle 清单中的 Agent 项。
+ * @returns {Record<string, string>} Skill ID 到绝对安装路径的映射。
+ */
+function getExpectedSkillInstallPaths(agentDirectory, manifestAgent) {
+  return Object.fromEntries(
+    getRuntimeSkillIds(manifestAgent).map((runtimeSkillId) => [
+      runtimeSkillId,
+      path.join(agentDirectory, "agent-core", "skills", runtimeSkillId),
+    ]),
+  );
+}
+
+/**
  * 解析安装器命令行参数。
  *
  * 支持：
@@ -385,27 +426,161 @@ function isStructurallyCompleteExistingInstall(agentDirectory, manifestAgent) {
     const skillsIndex = readJsonc(
       path.join(agentDirectory, "agent-core", "skills", "skills.jsonc"),
     );
-    const skillDirectory = path.join(
-      agentDirectory,
-      "agent-core",
-      "skills",
-      manifestAgent.runtimeSkillId,
-    );
+    const runtimeSkillIds = getRuntimeSkillIds(manifestAgent);
+    const expectedSkillIds = [...runtimeSkillIds].sort();
     const privateSkillDirectories = listPrivateSkillDirectories(agentDirectory);
+    const indexedSkillIds = Array.isArray(skillsIndex.skills)
+      ? skillsIndex.skills.map((skill) => skill?.id).sort()
+      : [];
     return (
       profile.sourceAgentId === manifestAgent.sourceAgentId &&
       profile.enabled !== false &&
       Array.isArray(skillsIndex.skills) &&
-      skillsIndex.skills.length === 1 &&
-      skillsIndex.skills[0]?.id === manifestAgent.runtimeSkillId &&
-      skillsIndex.skills[0]?.enabled === true &&
-      privateSkillDirectories.length === 1 &&
-      privateSkillDirectories[0] === manifestAgent.runtimeSkillId &&
-      fs.existsSync(path.join(skillDirectory, "SKILL.md"))
+      JSON.stringify(indexedSkillIds) === JSON.stringify(expectedSkillIds) &&
+      skillsIndex.skills.every((skill) => skill?.enabled === true) &&
+      JSON.stringify(privateSkillDirectories) === JSON.stringify(expectedSkillIds) &&
+      runtimeSkillIds.every((runtimeSkillId) =>
+        fs.existsSync(
+          path.join(
+            agentDirectory,
+            "agent-core",
+            "skills",
+            runtimeSkillId,
+            "SKILL.md",
+          ),
+        ),
+      )
     );
   } catch {
     return false;
   }
+}
+
+/**
+ * 用当前 Bundle 模板原子升级同来源的旧 Agent，同时保留本地 ID、账号信息和用户记忆。
+ *
+ * 该流程用于 v2.1 等旧包升级到新版私有 Skill。它先在隐藏 staging 目录准备完整新模板，
+ * 校验通过后才把旧目录改名为备份并切换新目录；调用方在整批安装成功后删除备份，失败时
+ * 则用 restoreExistingTemplateUpgrade 恢复。这样既能真正替换旧 Skill，又不会把用户的
+ * USER.md、MEMORY.md 或本地 Agent ID 清空。
+ *
+ * @param {string} agentDirectory - 已安装 Agent 目录。
+ * @param {Record<string, unknown>} manifestAgent - Bundle 清单项。
+ * @param {string} bundleId - Bundle ID。
+ * @param {string} bundleVersion - Bundle 版本。
+ * @param {string} expectedBrand - Bundle 品牌。
+ * @returns {{agentDirectory: string, backupDirectory: string}} 可回滚的目录快照。
+ * @throws {Error} 模板、旧配置、staging 校验或原子改名失败时抛出。
+ */
+function upgradeExistingAgentFromTemplate(
+  agentDirectory,
+  manifestAgent,
+  bundleId,
+  bundleVersion,
+  expectedBrand,
+) {
+  const localAgentId = path.basename(agentDirectory);
+  const parentDirectory = path.dirname(agentDirectory);
+  const stagingDirectory = path.join(parentDirectory, `.upgrading-${localAgentId}`);
+  const backupDirectory = path.join(parentDirectory, `.upgrade-backup-${localAgentId}`);
+  if (fs.existsSync(stagingDirectory) || fs.existsSync(backupDirectory)) {
+    throw new Error(`${manifestAgent.displayName} 存在未完成的升级残片`);
+  }
+
+  const templateDirectory = path.join(
+    BUNDLE_ROOT,
+    "agents",
+    manifestAgent.templateDirectory,
+  );
+  const oldProfile = readJsonc(path.join(agentDirectory, "profile.jsonc"));
+  const oldUserContent = fs.readFileSync(
+    path.join(agentDirectory, "agent-core", "USER.md"),
+    "utf8",
+  );
+  const oldMemoryContent = fs.readFileSync(
+    path.join(agentDirectory, "agent-core", "MEMORY.md"),
+    "utf8",
+  );
+
+  try {
+    fs.cpSync(templateDirectory, stagingDirectory, {
+      recursive: true,
+      force: false,
+      errorOnExist: true,
+      preserveTimestamps: true,
+    });
+    const profilePath = path.join(stagingDirectory, "profile.jsonc");
+    const templateProfile = readJsonc(profilePath);
+    writeJsonAtomically(profilePath, {
+      ...templateProfile,
+      id: localAgentId,
+      enabled: true,
+      accountId: oldProfile.accountId,
+      installedFromBundle: bundleId,
+      installedBundleVersion: bundleVersion,
+    });
+    writeTextAtomically(
+      path.join(stagingDirectory, "agent-core", "USER.md"),
+      oldUserContent,
+    );
+    writeTextAtomically(
+      path.join(stagingDirectory, "agent-core", "MEMORY.md"),
+      oldMemoryContent,
+    );
+
+    const expectedSkillInstallPaths = getExpectedSkillInstallPaths(
+      agentDirectory,
+      manifestAgent,
+    );
+    const skillsIndexPath = path.join(
+      stagingDirectory,
+      "agent-core",
+      "skills",
+      "skills.jsonc",
+    );
+    const skillsIndex = readJsonc(skillsIndexPath);
+    const expectedSkillIds = [...getRuntimeSkillIds(manifestAgent)].sort();
+    const indexedSkillIds = Array.isArray(skillsIndex.skills)
+      ? skillsIndex.skills.map((skill) => skill?.id).sort()
+      : [];
+    if (JSON.stringify(indexedSkillIds) !== JSON.stringify(expectedSkillIds)) {
+      throw new Error(`${manifestAgent.displayName} 升级模板 Skill 与清单不一致`);
+    }
+    for (const skillEntry of skillsIndex.skills) {
+      skillEntry.installPath = expectedSkillInstallPaths[skillEntry.id];
+    }
+    writeJsonAtomically(skillsIndexPath, skillsIndex);
+    validatePreparedAgent(
+      stagingDirectory,
+      manifestAgent,
+      localAgentId,
+      expectedSkillInstallPaths,
+      expectedBrand,
+    );
+
+    fs.renameSync(agentDirectory, backupDirectory);
+    try {
+      fs.renameSync(stagingDirectory, agentDirectory);
+    } catch (error) {
+      fs.renameSync(backupDirectory, agentDirectory);
+      throw error;
+    }
+    return { agentDirectory, backupDirectory };
+  } catch (error) {
+    fs.rmSync(stagingDirectory, { recursive: true, force: true });
+    throw error;
+  }
+}
+
+/**
+ * 回滚一次已完成目录切换但整批安装随后失败的模板升级。
+ *
+ * @param {{agentDirectory: string, backupDirectory: string}} snapshot - 升级目录快照。
+ * @returns {void}
+ */
+function restoreExistingTemplateUpgrade(snapshot) {
+  fs.rmSync(snapshot.agentDirectory, { recursive: true, force: true });
+  fs.renameSync(snapshot.backupDirectory, snapshot.agentDirectory);
 }
 
 /**
@@ -787,7 +962,7 @@ function createUniqueAgentId(usedIds) {
  * @param {string} agentDirectory - Agent 目录。
  * @param {Record<string, unknown>} manifestAgent - Bundle 清单项。
  * @param {string} expectedAgentId - 本次生成的 MID-*。
- * @param {string} expectedInstallPath - 私有 Skill 最终安装绝对路径。
+ * @param {Record<string, string>} expectedInstallPaths - Skill ID 到最终安装绝对路径的映射。
  * @param {string} expectedBrand - Bundle 顶层声明的品牌。
  * @returns {void}
  * @throws {Error} 文件、ID、头像或 Skill 索引不匹配时抛出。
@@ -796,9 +971,11 @@ function validatePreparedAgent(
   agentDirectory,
   manifestAgent,
   expectedAgentId,
-  expectedInstallPath,
+  expectedInstallPaths,
   expectedBrand,
 ) {
+  const runtimeSkillIds = getRuntimeSkillIds(manifestAgent);
+  const expectedSkillIds = [...runtimeSkillIds].sort();
   const required = [
     "profile.jsonc",
     "agent-core/AGENTS.md",
@@ -810,7 +987,9 @@ function validatePreparedAgent(
     "agent-core/HEARTBEAT.md",
     "agent-core/tool-registry.jsonc",
     "agent-core/skills/skills.jsonc",
-    `agent-core/skills/${manifestAgent.runtimeSkillId}/SKILL.md`,
+    ...runtimeSkillIds.map(
+      (runtimeSkillId) => `agent-core/skills/${runtimeSkillId}/SKILL.md`,
+    ),
     "permissions/policy.jsonl",
   ];
   for (const relativePath of required) {
@@ -823,8 +1002,10 @@ function validatePreparedAgent(
   const skillsIndex = readJsonc(
     path.join(agentDirectory, "agent-core", "skills", "skills.jsonc"),
   );
-  const skillEntry = skillsIndex.skills?.[0];
   const privateSkillDirectories = listPrivateSkillDirectories(agentDirectory);
+  const indexedSkillIds = Array.isArray(skillsIndex.skills)
+    ? skillsIndex.skills.map((skill) => skill?.id).sort()
+    : [];
   if (
     profile.id !== expectedAgentId ||
     profile.name !== manifestAgent.displayName ||
@@ -852,12 +1033,13 @@ function validatePreparedAgent(
   }
   if (
     !Array.isArray(skillsIndex.skills) ||
-    skillsIndex.skills.length !== 1 ||
-    skillEntry?.id !== manifestAgent.runtimeSkillId ||
-    skillEntry?.enabled !== true ||
-    skillEntry?.installPath !== expectedInstallPath ||
-    privateSkillDirectories.length !== 1 ||
-    privateSkillDirectories[0] !== manifestAgent.runtimeSkillId
+    JSON.stringify(indexedSkillIds) !== JSON.stringify(expectedSkillIds) ||
+    skillsIndex.skills.some(
+      (skillEntry) =>
+        skillEntry?.enabled !== true ||
+        skillEntry?.installPath !== expectedInstallPaths[skillEntry?.id],
+    ) ||
+    JSON.stringify(privateSkillDirectories) !== JSON.stringify(expectedSkillIds)
   ) {
     throw new Error(`${manifestAgent.displayName} 的私有 Skill 索引校验失败`);
   }
@@ -903,11 +1085,10 @@ function installBundle(manifest, target, dryRun) {
       manifestAgent.sourceAgentId,
     );
     if (existingSourceDirectory) {
-      if (!isStructurallyCompleteExistingInstall(existingSourceDirectory, manifestAgent)) {
-        throw new Error(
-          `已存在同来源但不完整的 Agent：${manifestAgent.displayName}（${existingSourceDirectory}）`,
-        );
-      }
+      const needsTemplateUpgrade = !isStructurallyCompleteExistingInstall(
+        existingSourceDirectory,
+        manifestAgent,
+      );
       const skippedEntry = {
         displayName: manifestAgent.displayName,
         sourceAgentId: manifestAgent.sourceAgentId,
@@ -915,7 +1096,7 @@ function installBundle(manifest, target, dryRun) {
         directory: existingSourceDirectory,
       };
       skipped.push(skippedEntry);
-      skippedTasks.push({ manifestAgent, ...skippedEntry });
+      skippedTasks.push({ manifestAgent, needsTemplateUpgrade, ...skippedEntry });
       continue;
     }
 
@@ -957,6 +1138,7 @@ function installBundle(manifest, target, dryRun) {
   const finalized = [];
   const existingPersonalizationSnapshots = [];
   const existingBrandingSnapshots = [];
+  const existingTemplateUpgradeSnapshots = [];
   try {
     for (const task of tasks) {
       if (fs.existsSync(task.stagingDirectory) || fs.existsSync(task.finalDirectory)) {
@@ -993,11 +1175,9 @@ function installBundle(manifest, target, dryRun) {
         installedBundleVersion: manifest.version,
       });
 
-      const finalSkillDirectory = path.join(
+      const expectedSkillInstallPaths = getExpectedSkillInstallPaths(
         task.finalDirectory,
-        "agent-core",
-        "skills",
-        task.manifestAgent.runtimeSkillId,
+        task.manifestAgent,
       );
       const skillsIndexPath = path.join(
         task.stagingDirectory,
@@ -1006,12 +1186,21 @@ function installBundle(manifest, target, dryRun) {
         "skills.jsonc",
       );
       const skillsIndex = readJsonc(skillsIndexPath);
-      if (!Array.isArray(skillsIndex.skills) || skillsIndex.skills.length !== 1) {
+      const runtimeSkillIds = getRuntimeSkillIds(task.manifestAgent);
+      const indexedSkillIds = Array.isArray(skillsIndex.skills)
+        ? skillsIndex.skills.map((skill) => skill?.id).sort()
+        : [];
+      if (
+        JSON.stringify(indexedSkillIds) !==
+        JSON.stringify([...runtimeSkillIds].sort())
+      ) {
         throw new Error(
-          `${task.manifestAgent.displayName} 模板私有 Skill 数量不是 1`,
+          `${task.manifestAgent.displayName} 模板私有 Skill 与 Bundle 清单不一致`,
         );
       }
-      skillsIndex.skills[0].installPath = finalSkillDirectory;
+      for (const skillEntry of skillsIndex.skills) {
+        skillEntry.installPath = expectedSkillInstallPaths[skillEntry.id];
+      }
       writeJsonAtomically(skillsIndexPath, skillsIndex);
 
       // 在原子改名前完成个性化，确保 Accio 永远看不到半完成的新 Agent。
@@ -1021,7 +1210,7 @@ function installBundle(manifest, target, dryRun) {
         task.stagingDirectory,
         task.manifestAgent,
         task.localAgentId,
-        finalSkillDirectory,
+        expectedSkillInstallPaths,
         bundleBrand,
       );
       validatePersonalization(task.stagingDirectory, personalizationSource);
@@ -1030,6 +1219,16 @@ function installBundle(manifest, target, dryRun) {
     // 已完整安装的同来源 Agent 不重复创建，但会统一升级来搜名称与 Logo，并刷新当前
     // 账号最新的本地画像和记忆。写入前保留快照；后续任何一步失败都会恢复原文件。
     for (const skippedTask of skippedTasks) {
+      if (skippedTask.needsTemplateUpgrade) {
+        const templateUpgradeSnapshot = upgradeExistingAgentFromTemplate(
+          skippedTask.directory,
+          skippedTask.manifestAgent,
+          manifest.bundleId,
+          manifest.version,
+          bundleBrand,
+        );
+        existingTemplateUpgradeSnapshots.push(templateUpgradeSnapshot);
+      }
       const brandingSnapshot = applyBrandingToExistingAgent(
         skippedTask.directory,
         skippedTask.manifestAgent,
@@ -1041,17 +1240,15 @@ function installBundle(manifest, target, dryRun) {
         personalizationSource,
       );
       existingPersonalizationSnapshots.push(snapshot);
-      const finalSkillDirectory = path.join(
+      const expectedSkillInstallPaths = getExpectedSkillInstallPaths(
         skippedTask.directory,
-        "agent-core",
-        "skills",
-        skippedTask.manifestAgent.runtimeSkillId,
+        skippedTask.manifestAgent,
       );
       validatePreparedAgent(
         skippedTask.directory,
         skippedTask.manifestAgent,
         skippedTask.localAgentId,
-        finalSkillDirectory,
+        expectedSkillInstallPaths,
         bundleBrand,
       );
       validatePersonalization(skippedTask.directory, personalizationSource);
@@ -1066,34 +1263,30 @@ function installBundle(manifest, target, dryRun) {
     }
 
     for (const task of tasks) {
-      const finalSkillDirectory = path.join(
+      const expectedSkillInstallPaths = getExpectedSkillInstallPaths(
         task.finalDirectory,
-        "agent-core",
-        "skills",
-        task.manifestAgent.runtimeSkillId,
+        task.manifestAgent,
       );
       validatePreparedAgent(
         task.finalDirectory,
         task.manifestAgent,
         task.localAgentId,
-        finalSkillDirectory,
+        expectedSkillInstallPaths,
         bundleBrand,
       );
       validatePersonalization(task.finalDirectory, personalizationSource);
     }
 
     for (const skippedTask of skippedTasks) {
-      const finalSkillDirectory = path.join(
+      const expectedSkillInstallPaths = getExpectedSkillInstallPaths(
         skippedTask.directory,
-        "agent-core",
-        "skills",
-        skippedTask.manifestAgent.runtimeSkillId,
+        skippedTask.manifestAgent,
       );
       validatePreparedAgent(
         skippedTask.directory,
         skippedTask.manifestAgent,
         skippedTask.localAgentId,
-        finalSkillDirectory,
+        expectedSkillInstallPaths,
         bundleBrand,
       );
       validatePersonalization(skippedTask.directory, personalizationSource);
@@ -1111,6 +1304,11 @@ function installBundle(manifest, target, dryRun) {
       throw new Error(
         `发现未完成的 staging 目录：${installingResidue.join(", ")}`,
       );
+    }
+
+    // 到这里整批 Agent 已经全部校验完成，旧目录备份不再需要。
+    for (const snapshot of existingTemplateUpgradeSnapshots) {
+      fs.rmSync(snapshot.backupDirectory, { recursive: true, force: true });
     }
   } catch (error) {
     for (const stagingDirectory of staged) {
@@ -1137,6 +1335,17 @@ function installBundle(manifest, target, dryRun) {
         process.stderr.write(`ROLLBACK_WARNING ${restoreMessage}\n`);
       }
     }
+    for (const snapshot of existingTemplateUpgradeSnapshots.reverse()) {
+      try {
+        if (fs.existsSync(snapshot.backupDirectory)) {
+          restoreExistingTemplateUpgrade(snapshot);
+        }
+      } catch (restoreError) {
+        const restoreMessage =
+          restoreError instanceof Error ? restoreError.message : String(restoreError);
+        process.stderr.write(`ROLLBACK_WARNING ${restoreMessage}\n`);
+      }
+    }
     throw error;
   }
 
@@ -1145,6 +1354,7 @@ function installBundle(manifest, target, dryRun) {
       displayName: task.manifestAgent.displayName,
       localAgentId: task.localAgentId,
       runtimeSkillId: task.manifestAgent.runtimeSkillId,
+      runtimeSkillIds: getRuntimeSkillIds(task.manifestAgent),
       directory: task.finalDirectory,
     })),
     skipped,
