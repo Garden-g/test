@@ -3,10 +3,10 @@ Install the Laisou suite of 47 course agents into the current Accio Work space.
 Use Chinese for all user-facing communication, including progress updates, clarification questions, error messages, and the final installation report.
 
 Immutable ZIP URL:
-https://raw.githubusercontent.com/Garden-g/test/8bb6b11d0dad165bc12ae2fc7b79add8b7cf08cb/release/laisou-47-accio-agents-v2.4.0.zip
+https://raw.githubusercontent.com/Garden-g/test/359da41f08a49ad6e8e0a9a7127607f11bd16718/release/laisou-47-accio-agents-v2.5.0.zip
 
 Expected SHA-256 of the ZIP file:
-b7f591b8c4cb65796a10c761c05f50a2dc07af15c3bf273ba1c5f6e3da13dc63
+270d14778f92d899fc0e612c72178f44589008779f53c35ec83ba3a84571e137
 
 Download the immutable ZIP URL directly as binary data with curl to a new temporary file. On Windows, use curl.exe. Use fail-on-HTTP-error, follow redirects, and bounded retries. Do not download or hash a separate checksum file, a GitHub HTML page, or an error response. Calculate SHA-256 on the downloaded ZIP file itself and compare the lowercase hexadecimal value exactly with the expected value above.
 
@@ -14,7 +14,7 @@ If the transfer command reports an HTTP or network error, report a download fail
 
 After checksum verification succeeds, extract the ZIP with UTF-8 filename support. Read INSTALL_PROMPT.txt inside the extracted package, then run installer/install-windows.ps1 on Windows or installer/install-macos.sh on macOS. Do not use the Create Agent workflow, and do not overwrite unrelated agents.
 
-The names of all 47 agents must begin with "来搜 | ", and every agent must use the same 1000x1000 pure-white-background square Laisou logo declared by the bundle. Merge the local user profile and memory from the current primary Accio agent into all 47 agents. If an older agent from the same source already exists, preserve its ID, account profile, USER.md, and MEMORY.md while replacing the old template and private Skills in place; do not create a duplicate. An agent may contain one or more private Skills declared by the bundle, and all declared Skills must be installed and validated.
+The names of all 47 agents must begin with "来搜 | ", and every agent must use the same original 481x480 transparent-background Laisou logo declared by the bundle, with SHA-256 4487f0325a41e1d410c241b59b9c3a5de2c90e2f632171154198bd4710442813. Do not replace it with the v2.3.0 white-background square logo. Merge the local user profile and memory from the current primary Accio agent into all 47 agents. If an older agent from the same source already exists, preserve its ID, account profile, USER.md, and MEMORY.md while replacing the old template and private Skills in place; do not create a duplicate. An agent may contain one or more private Skills declared by the bundle, and all declared Skills must be installed and validated.
 
 For the 14 course items owned by 鸡公老师 (3-1 through 3-6, 4-1 through 4-6, 4-9, and 4-10), use only the teacher-source templates included in this bundle. Do not substitute Laisou GitHub published or unpublished Skills for those items.
 
