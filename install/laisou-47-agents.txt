@@ -3,10 +3,10 @@ Install the Laisou suite of 47 course agents into the current Accio Work space.
 Use Chinese for all user-facing communication, including progress updates, clarification questions, error messages, and the final installation report.
 
 Immutable ZIP URL:
-https://raw.githubusercontent.com/Garden-g/test/359da41f08a49ad6e8e0a9a7127607f11bd16718/release/laisou-47-accio-agents-v2.5.0.zip
+https://raw.githubusercontent.com/Garden-g/test/1cef8af4d191a30bcaf4628854baeda5b7863373/release/laisou-47-accio-agents-v2.6.0.zip
 
 Expected SHA-256 of the ZIP file:
-270d14778f92d899fc0e612c72178f44589008779f53c35ec83ba3a84571e137
+1dfac99865d8cba526a4abf905b620b6c57a20bc891d3c634d21a2e9ad2ce29b
 
 Download the immutable ZIP URL directly as binary data with curl to a new temporary file. On Windows, use curl.exe. Use fail-on-HTTP-error, follow redirects, and bounded retries. Do not download or hash a separate checksum file, a GitHub HTML page, or an error response. Calculate SHA-256 on the downloaded ZIP file itself and compare the lowercase hexadecimal value exactly with the expected value above.
 
@@ -19,5 +19,7 @@ The names of all 47 agents must begin with "来搜 | ", and every agent must use
 For the 14 course items owned by 鸡公老师 (3-1 through 3-6, 4-1 through 4-6, 4-9, and 4-10), use only the teacher-source templates included in this bundle. Do not substitute Laisou GitHub published or unpublished Skills for those items.
 
 For course 3-1, preserve the bundled TWS Excel acceptance sample and the eight-sheet report output contract inside its private Skill. A formal market and customer research report must generate the declared .xlsx deliverable and pass its source, image, formula, workbook-structure, and visual checks; a Markdown-only response is not a complete report.
+
+For course 3-4, preserve the bundled keyword-driven title workflow, 110-120 character validator, full-keyword coverage check, and 180-link Excel output contract. Every formal English title must pass the bundled deterministic validator; a title shorter than 110 characters or longer than 120 characters must be rewritten and must not be delivered as a valid result.
 
 Report success only when the installer outputs INSTALL_OK, installed plus skipped equals 47, branded equals 47, personalized equals 47, and no .installing-* directory remains. Do not restart Accio automatically. When installation is complete, ask me in Chinese to fully quit and reopen Accio Work manually.
