@@ -1,0 +1,25 @@
+请把“来搜 | 企业 AI 底座搭建智能体”安装到当前登录的 Accio Work 空间。全程使用中文反馈。
+
+不可变 ZIP 地址：
+https://raw.githubusercontent.com/Garden-g/test/2b78e67af105ae7f709960563a23a64c5e5a267a/release/laisou-enterprise-ai-foundation-builder-agent-v1.0.0.zip
+
+ZIP 预期 SHA-256：
+bc6af40d1ee0e6acb83df30f3976c90e3b26f784eae75f533c2e70fe55306a75
+
+先用 curl 把上述不可变地址作为二进制文件下载到一个新的临时路径；Windows 使用 curl.exe。启用 HTTP 错误失败、重定向和有限次数重试。下载命令出现网络或 HTTP 错误时，应报告下载失败，不能误报为哈希错误。对下载到的 ZIP 本体计算 SHA-256 并精确比较；第一次不一致时删除本次临时 ZIP，再干净下载一次，第二次仍不一致就停止。
+
+校验通过后，使用兼容 UTF-8 文件名的方式解压 ZIP，然后执行以下安装规则：
+
+1. 读取 ~/.accio/state/current-space.json 确认当前 Accio Work 空间，不要根据目录修改时间猜测。
+2. 校验 profile.jsonc、agent-core/、permissions/、agent-core/skills/skills.jsonc 和 agent-core/scripts/sync_accio_context.py。
+3. 智能体名称必须是“来搜 | 企业 AI 底座搭建智能体”，私有 Skill 必须且只能包含 enterprise-ai-foundation-builder。
+4. 确认 profile.jsonc.id 在当前空间唯一；如有冲突，生成新的 MID-*，并保持目标目录名与 profile.jsonc.id 完全一致。
+5. 确保 profile.jsonc.enabled 为 true。确认目标 agents/<agentId>/ 不存在，禁止覆盖；先复制到同级 .installing-<agentId>。
+6. 在同一空间 agents/ 下动态寻找 enabled=true 且 agentType="accio" 的主智能体，不写死 DID/MID，不跨账号或空间读取。
+7. 运行 .installing-<agentId>/agent-core/scripts/sync_accio_context.py install，显式传入待安装 agent-core 和当前 agents/ 路径。脚本必须返回 status=synchronized、sourceAgentId、userSha256、memorySha256 和 protocolVersion。
+8. 不允许整文件覆盖 USER.md 或 MEMORY.md，不得破坏 ACCIO_WORK:BEGIN_CONNECTED_ACCOUNTS 等系统保留区。找不到唯一来源、共享区未初始化或同步失败时必须停止。
+9. 同步成功后，复核核心文件、受控区唯一性、来源摘要、私有 Skill 和权限文件，再把 .installing-<agentId> 原子改名为正式目录。
+10. 私有 Skill 保留在 agent-core/skills/ 中，不要安装到全局 skills 目录。
+11. 安装成功后回报智能体名称、ID、最终路径、启用状态、工具白名单、插件依赖、私有 Skill 和 USER/MEMORY 同步摘要，并提醒用户完整退出后重新打开 Accio Work。
+
+本包声明的插件依赖为 knowledge-base-plugin、spreadsheets、documents。插件声明不代表目标环境已经安装或授权；知识库上传、绑定和权限配置仍需用户在 Accio Work 可见界面完成。没有真实成功回执时，不得声称知识库已经上传或生效。
