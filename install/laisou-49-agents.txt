@@ -3,10 +3,10 @@ Install the Laisou suite of 49 course agents into the current Accio Work space.
 Use Chinese for all user-facing communication, including progress updates, clarification questions, error messages, and the final installation report.
 
 Immutable ZIP URL:
-https://raw.githubusercontent.com/Garden-g/test/605c11166be07a685750fd50a70ce1ff9e077a44/release/laisou-49-accio-agents-v2.7.1.zip
+https://raw.githubusercontent.com/Garden-g/test/c3b5ce523076f922f358b17981a39cc3b3d9c6df/release/laisou-49-accio-agents-v2.7.2.zip
 
 Expected SHA-256 of the ZIP file:
-1ba5a7c726cf999c120184bde5c83aab5877528a52af24ef3c4d672a7b9572fe
+22571e690ac6e2976f16eb2e1511335586deda6c60976704b92f02edca1dff2a
 
 Download the immutable ZIP URL directly as binary data with curl to a new temporary file. On Windows, use curl.exe. Use fail-on-HTTP-error, follow redirects, and bounded retries. Do not download or hash a separate checksum file, a GitHub HTML page, or an error response. Calculate SHA-256 on the downloaded ZIP file itself and compare the lowercase hexadecimal value exactly with the expected value above.
 
