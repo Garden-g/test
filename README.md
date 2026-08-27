@@ -32,4 +32,6 @@
 
 如只需要补装这一个，也可使用[企业知识库问答智能体安装提示词](INSTALL_ENTERPRISE_KNOWLEDGE_BASE_QA_AGENT.md)。目标 Accio Work 环境仍需安装并授权 `knowledge-base-plugin`。
 
+当前独立安装包版本为 `v1.0.1`，已与 49-Agent 总包统一使用来搜 Logo。
+
 完整 49-Agent 套装版本为 `v2.7.0`，发布 ZIP 的 SHA-256 为 `2a0cbbd2dcc5f3c072d2fb28bfb5fc457f362183f258d39c703c0cb7875191ba`。
