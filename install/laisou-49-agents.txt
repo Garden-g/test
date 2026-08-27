@@ -3,10 +3,10 @@ Install the Laisou suite of 49 course agents into the current Accio Work space.
 Use Chinese for all user-facing communication, including progress updates, clarification questions, error messages, and the final installation report.
 
 Immutable ZIP URL:
-https://raw.githubusercontent.com/Garden-g/test/d3e328fa016ab3fc2597d6b392dad89f30a4ae31/release/laisou-49-accio-agents-v2.7.0.zip
+https://raw.githubusercontent.com/Garden-g/test/605c11166be07a685750fd50a70ce1ff9e077a44/release/laisou-49-accio-agents-v2.7.1.zip
 
 Expected SHA-256 of the ZIP file:
-2a0cbbd2dcc5f3c072d2fb28bfb5fc457f362183f258d39c703c0cb7875191ba
+1ba5a7c726cf999c120184bde5c83aab5877528a52af24ef3c4d672a7b9572fe
 
 Download the immutable ZIP URL directly as binary data with curl to a new temporary file. On Windows, use curl.exe. Use fail-on-HTTP-error, follow redirects, and bounded retries. Do not download or hash a separate checksum file, a GitHub HTML page, or an error response. Calculate SHA-256 on the downloaded ZIP file itself and compare the lowercase hexadecimal value exactly with the expected value above.
 
@@ -16,7 +16,7 @@ After checksum verification succeeds, extract the ZIP with UTF-8 filename suppor
 
 The names of all 49 agents must begin with "来搜 | ", and every agent must use the same original 481x480 transparent-background Laisou logo declared by the bundle, with SHA-256 4487f0325a41e1d410c241b59b9c3a5de2c90e2f632171154198bd4710442813. Do not replace it with the v2.3.0 white-background square logo. Merge the local user profile and memory from the current primary Accio agent into all 49 agents. If an older agent from the same source already exists, preserve its ID, account profile, USER.md, and MEMORY.md while replacing the old template and private Skills in place; do not create a duplicate. An agent may contain one or more private Skills declared by the bundle, and all declared Skills must be installed and validated.
 
-The 48th agent, "来搜 | 企业 AI 底座搭建智能体", must retain its detailed AGENTS.md, IDENTITY.md, USER.md, SOUL.md, and MEMORY.md instructions and the declared private Skill. It supports courses 2-1 through 2-9, including multi-turn Ask User refinement, company-file generation, knowledge-base preparation, and retrieval acceptance.
+The 48th agent, "来搜 | 企业 AI 底座搭建智能体", must retain its detailed AGENTS.md, IDENTITY.md, USER.md, SOUL.md, and MEMORY.md instructions and the declared private Skill. It supports courses 2-1 through 2-9 and includes 15 complete readable deliverables: 8 DOCX documents and 7 XLSX workbooks, including the enriched enterprise positioning and standard company introduction.
 
 The 49th agent, "来搜 | 企业知识库问答智能体", must retain its detailed core files and the private Skill "enterprise-knowledge-base-qa". For enterprise knowledge questions it must use knowledge-base-plugin retrieval rather than answer only from model memory. It must search with search_kb_file_contents, read authoritative files with get_kb_file_contents when needed, cite the actual file names used in every answer, retry search with broader candidate counts when evidence is weak, disclose uncertainty when evidence is missing, and warn about possible knowledge-base updates when retrieved evidence conflicts with MEMORY.md.
 

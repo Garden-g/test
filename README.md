@@ -17,7 +17,7 @@
 - 2-1 至 2-7：通过多轮 Ask User、文件读取和必要的公开检索，形成公司、产品、问答案例、市场、法规和竞品标准资料。
 - 2-8：整理脱敏知识库上传包、权限和版本台账；上传、绑定和权限仍由用户在 Accio Work 可见界面完成。
 - 2-9：使用 `knowledge-base-plugin` 的 Get/Search 能力完成 RAG 检索验收。
-- 私有 Skill 内置十工作表 `企业AI底座标准模板包.xlsx`。
+- 私有 Skill 内置 8 份可直接阅读的 DOCX 和 7 份 XLSX，包含扩充后的企业定位与标准公司介绍、产品资料、客户问答、案例、市场、竞品与知识库成果。
 
 该智能体随完整 49-Agent 套装统一安装。目标 Accio Work 环境仍需安装并授权知识库插件。
 
@@ -32,4 +32,4 @@
 
 该智能体随完整 49-Agent 套装统一安装。目标 Accio Work 环境仍需安装并授权 `knowledge-base-plugin`。
 
-完整 49-Agent 套装版本为 `v2.7.0`，发布 ZIP 的 SHA-256 为 `2a0cbbd2dcc5f3c072d2fb28bfb5fc457f362183f258d39c703c0cb7875191ba`。
+完整 49-Agent 套装版本为 `v2.7.1`，发布 ZIP 的 SHA-256 为 `1ba5a7c726cf999c120184bde5c83aab5877528a52af24ef3c4d672a7b9572fe`。

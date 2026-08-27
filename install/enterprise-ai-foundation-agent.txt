@@ -1,10 +1,10 @@
 请把“来搜 | 企业 AI 底座搭建智能体”安装到当前登录的 Accio Work 空间。全程使用中文反馈。
 
 不可变 ZIP 地址：
-https://raw.githubusercontent.com/Garden-g/test/2b78e67af105ae7f709960563a23a64c5e5a267a/release/laisou-enterprise-ai-foundation-builder-agent-v1.0.0.zip
+https://raw.githubusercontent.com/Garden-g/test/605c11166be07a685750fd50a70ce1ff9e077a44/release/laisou-enterprise-ai-foundation-builder-agent-v1.0.1.zip
 
 ZIP 预期 SHA-256：
-bc6af40d1ee0e6acb83df30f3976c90e3b26f784eae75f533c2e70fe55306a75
+0f8d98abe834cc5338410d5a320880bcff43a33fe7d42f650f745a6d457f2301
 
 先用 curl 把上述不可变地址作为二进制文件下载到一个新的临时路径；Windows 使用 curl.exe。启用 HTTP 错误失败、重定向和有限次数重试。下载命令出现网络或 HTTP 错误时，应报告下载失败，不能误报为哈希错误。对下载到的 ZIP 本体计算 SHA-256 并精确比较；第一次不一致时删除本次临时 ZIP，再干净下载一次，第二次仍不一致就停止。
 
