@@ -1,10 +1,10 @@
 请把“来搜 | 企业知识库问答智能体”安装到当前登录的 Accio Work 空间。全程使用中文反馈。
 
 不可变 ZIP 地址：
-https://raw.githubusercontent.com/Garden-g/test/e35bc3aaa507179803a3f68cdce82512945edf79/release/laisou-enterprise-knowledge-base-qa-agent-v1.0.0.zip
+https://raw.githubusercontent.com/Garden-g/test/77b3072a708dbebfc0739a7697af6a5b7fa81f14/release/laisou-enterprise-knowledge-base-qa-agent-v1.0.1.zip
 
 ZIP 预期 SHA-256：
-2ede2f5190a0489fc25da143044a11fbba3137333b78a5d235ab7fd3cdfa2186
+3e8d0309885f11ae70f2ff20bb90e7a7132c6d6f8bd3461e30a3dc4e9d2abb93
 
 先用 curl 把上述不可变地址作为二进制文件下载到一个新的临时路径；Windows 使用 curl.exe。启用 HTTP 错误失败、重定向和有限次数重试。下载命令出现网络或 HTTP 错误时，应报告下载失败，不能误报为哈希错误。对下载到的 ZIP 本体计算 SHA-256 并精确比较；第一次不一致时删除本次临时 ZIP，再干净下载一次，第二次仍不一致就停止。
 
