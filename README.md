@@ -19,7 +19,7 @@
 - 2-9：使用 `knowledge-base-plugin` 的 Get/Search 能力完成 RAG 检索验收。
 - 私有 Skill 内置十工作表 `企业AI底座标准模板包.xlsx`。
 
-如只需要补装这一个，也可使用[独立智能体安装提示词](INSTALL_ENTERPRISE_AI_FOUNDATION_AGENT.md)。目标 Accio Work 环境仍需安装并授权知识库插件。
+该智能体随完整 49-Agent 套装统一安装。目标 Accio Work 环境仍需安装并授权知识库插件。
 
 ## 企业知识库问答智能体
 
@@ -30,8 +30,6 @@
 - 每次回答都列出实际引用的知识库文件；没有证据时明确说明未找到可引用文件。
 - 回答前核对 Memory；知识库与 Memory 不一致时提醒用户判断是否需要更新知识库。
 
-如只需要补装这一个，也可使用[企业知识库问答智能体安装提示词](INSTALL_ENTERPRISE_KNOWLEDGE_BASE_QA_AGENT.md)。目标 Accio Work 环境仍需安装并授权 `knowledge-base-plugin`。
-
-当前独立安装包版本为 `v1.0.1`，已与 49-Agent 总包统一使用来搜 Logo。
+该智能体随完整 49-Agent 套装统一安装。目标 Accio Work 环境仍需安装并授权 `knowledge-base-plugin`。
 
 完整 49-Agent 套装版本为 `v2.7.0`，发布 ZIP 的 SHA-256 为 `2a0cbbd2dcc5f3c072d2fb28bfb5fc457f362183f258d39c703c0cb7875191ba`。
