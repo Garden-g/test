@@ -3,10 +3,10 @@ Install the Laisou suite of 49 course agents into the current Accio Work space.
 Use Chinese for all user-facing communication, including progress updates, clarification questions, error messages, and the final installation report.
 
 Immutable ZIP URL:
-https://raw.githubusercontent.com/Garden-g/test/c3b5ce523076f922f358b17981a39cc3b3d9c6df/release/laisou-49-accio-agents-v2.7.2.zip
+https://raw.githubusercontent.com/Garden-g/test/37e07d4e8f441225c235448f065b34a554987b78/release/laisou-49-accio-agents-v2.7.3.zip
 
 Expected SHA-256 of the ZIP file:
-22571e690ac6e2976f16eb2e1511335586deda6c60976704b92f02edca1dff2a
+acbd4e0303622d0b13a409cef98abefb2303ba28f2d9a259ea23722195d82477
 
 Download the immutable ZIP URL directly as binary data with curl to a new temporary file. On Windows, use curl.exe. Use fail-on-HTTP-error, follow redirects, and bounded retries. Do not download or hash a separate checksum file, a GitHub HTML page, or an error response. Calculate SHA-256 on the downloaded ZIP file itself and compare the lowercase hexadecimal value exactly with the expected value above.
 
@@ -21,6 +21,8 @@ The 48th agent, "来搜 | 企业 AI 底座搭建智能体", must retain its deta
 The 49th agent, "来搜 | 企业知识库问答智能体", must retain its detailed core files and the private Skill "enterprise-knowledge-base-qa". For enterprise knowledge questions it must use knowledge-base-plugin retrieval rather than answer only from model memory. It must search with search_kb_file_contents, read authoritative files with get_kb_file_contents when needed, cite the actual file names used in every answer, retry search with broader candidate counts when evidence is weak, disclose uncertainty when evidence is missing, and warn about possible knowledge-base updates when retrieved evidence conflicts with MEMORY.md.
 
 For the 14 course items owned by 鸡公老师 (3-1 through 3-6, 4-1 through 4-6, 4-9, and 4-10), use only the teacher-source templates included in this bundle. Do not substitute Laisou GitHub published or unpublished Skills for those items.
+
+For the 16 customer-discovery and company-background-check agents covering courses 5-2 through 6-1, public lead discovery and verification must use only Search, Fetch, and Accio Browser Relay. Do not use Apify, external Actors, crawler services, or MCP collectors. The three pure search agents declare no plugin; the remaining Excel agents declare only spreadsheets, which is used solely to render and verify Excel files and never to acquire leads.
 
 For course 3-1, preserve the bundled TWS Excel acceptance sample and the eight-sheet report output contract inside its private Skill. A formal market and customer research report must generate the declared .xlsx deliverable and pass its source, image, formula, workbook-structure, and visual checks; a Markdown-only response is not a complete report.
 
