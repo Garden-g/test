@@ -1,6 +1,6 @@
-# 来搜 Accio Work 课程智能体套装
+# 来搜 Accio Work 课程智能体（共 49 个）
 
-本套装包含课程实际使用的 47 个外贸业务智能体，覆盖市场与选品、国际站运营、营销素材、客户开发、销售转化和经营管理等场景，支持 Windows 和 macOS。
+仓库目前共发布 49 个课程智能体：47 个外贸业务智能体组成基础套装，另有“企业 AI 底座搭建智能体”和“企业知识库问答智能体”两个独立安装包。基础套装覆盖市场与选品、国际站运营、营销素材、客户开发、销售转化和经营管理等场景，支持 Windows 和 macOS。
 
 ## 安装
 
@@ -20,3 +20,14 @@
 - 私有 Skill 内置十工作表 `企业AI底座标准模板包.xlsx`。
 
 安装入口见 [独立智能体安装提示词](INSTALL_ENTERPRISE_AI_FOUNDATION_AGENT.md)。发布 ZIP 的 SHA-256 为 `bc6af40d1ee0e6acb83df30f3976c90e3b26f784eae75f533c2e70fe55306a75`。目标 Accio Work 环境仍需安装并授权知识库插件。
+
+## 企业知识库问答智能体（独立安装）
+
+仓库另提供独立的 `来搜 | 企业知识库问答智能体`，用于企业资料完成入库后的日常检索问答：
+
+- 企业知识问题必须先调用 `search_kb_file_contents` 或 `get_kb_file_contents`，不能仅凭模型记忆回答。
+- Search 首轮读取 20 个候选块；证据不足时主动更换检索词并提高到 30，必要时最高 50。
+- 每次回答都列出实际引用的知识库文件；没有证据时明确说明未找到可引用文件。
+- 回答前核对 Memory；知识库与 Memory 不一致时提醒用户判断是否需要更新知识库。
+
+安装入口见 [企业知识库问答智能体安装提示词](INSTALL_ENTERPRISE_KNOWLEDGE_BASE_QA_AGENT.md)。发布 ZIP 的 SHA-256 为 `2ede2f5190a0489fc25da143044a11fbba3137333b78a5d235ab7fd3cdfa2186`。目标 Accio Work 环境仍需安装并授权 `knowledge-base-plugin`。
