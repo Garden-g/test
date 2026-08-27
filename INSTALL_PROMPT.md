@@ -3,11 +3,11 @@
 Windows：
 
 ```powershell
-    curl.exe --http1.1 --retry 5 --retry-all-errors --retry-delay 1 --retry-max-time 120 --connect-timeout 15 -fsSL https://raw.githubusercontent.com/Garden-g/test/17d1445ed39efede37e7f448b386276f3bc1ac7b/install/laisou-49-agents.txt
+    curl.exe --http1.1 --retry 5 --retry-all-errors --retry-delay 1 --retry-max-time 120 --connect-timeout 15 -fsSL https://raw.githubusercontent.com/Garden-g/test/614bbaaa144ca27cdbb6a21794fbe76abccc0e28/install/laisou-49-agents.txt
 ```
 
 macOS：
 
 ```bash
-    curl --http1.1 --retry 5 --retry-all-errors --retry-delay 1 --retry-max-time 120 --connect-timeout 15 -fsSL https://raw.githubusercontent.com/Garden-g/test/17d1445ed39efede37e7f448b386276f3bc1ac7b/install/laisou-49-agents.txt
+    curl --http1.1 --retry 5 --retry-all-errors --retry-delay 1 --retry-max-time 120 --connect-timeout 15 -fsSL https://raw.githubusercontent.com/Garden-g/test/614bbaaa144ca27cdbb6a21794fbe76abccc0e28/install/laisou-49-agents.txt
 ```
